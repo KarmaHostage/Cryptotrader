@@ -31,7 +31,6 @@ dependencies {
     testCompile("com.h2database:h2")
 
     //cloud
-    compile 'org.springframework.cloud:spring-cloud-starter-eureka'
     compile("org.springframework.boot:spring-boot-starter-cloud-connectors")
 
     //security

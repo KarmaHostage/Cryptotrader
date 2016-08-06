@@ -2,9 +2,9 @@ spring:
   thymeleaf:
     cache: false
   datasource:
-    url: jdbc:mysql://mysql:3306/cryptopurse
-    username: cryptopurse
-    password: cryptopurse
+    url: jdbc:mysql://mysql:3306/cryptotrading
+    username: cryptotrading
+    password: cryptotrading
     max-active: 10
     max-idle: 5
     min-idle: 2

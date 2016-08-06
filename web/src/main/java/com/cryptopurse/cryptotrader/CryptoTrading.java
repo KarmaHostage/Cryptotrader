@@ -5,11 +5,11 @@ import org.springframework.boot.actuate.system.ApplicationPidFileWriter;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CryptoPurse {
+public class CryptoTrading {
 
     public static void main(String[] args) {
-        SpringApplication cryptoPurse = new SpringApplication(CryptoPurse.class);
-        cryptoPurse.addListeners(new ApplicationPidFileWriter("cryptopurse.pid"));
+        SpringApplication cryptoPurse = new SpringApplication(CryptoTrading.class);
+        cryptoPurse.addListeners(new ApplicationPidFileWriter("cryptotrading.pid"));
         cryptoPurse.run(args);
     }
 

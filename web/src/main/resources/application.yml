@@ -9,7 +9,7 @@ spring:
     test-on-connect: true
     validation-query: SELECT 1
   application:
-    name: CryptoPurse
+    name: Cryptotrader
   thymeleaf:
     cache: true
     mode: HTML5
@@ -21,7 +21,7 @@ spring:
     active: local
 server:
   port: 8080
-  display-name: CryptoPurse
+  display-name: CryptoTrader
   error:
     whitelabel:
       enabled: false
@@ -41,20 +41,13 @@ hibernate:
 com:
   cryptopurse:
     fullbaseurl: http://localhost:8080
-    ethereum:
-      confirmations: 5
-      gaslimit: 21000
+    cryptotrader:
+      watch:
+        exchange: KRAKEN
+        currencypair: ETH_EUR
 
 # Logging Configuration
 logging:
-  file: cryptopurse.log
-  path: /var/log/cryptopurse
+  file: cryptotrading.log
+  path: /var/log/cryptotrading
   level: info
-
-eureka:
-  instance:
-    metadata-map:
-      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    service-url:
-      defaultZone: http://cryptopurse-discovery:8761/eureka/

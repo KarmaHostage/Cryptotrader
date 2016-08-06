@@ -16,3 +16,4 @@ classes/
 build/
 .idea
 .gradle
+*.log

@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    max-active: 10
+    max-idle: 5
+    min-idle: 2
+    initial-size: 5
+    remove-abandoned: true
+    test-on-borrow: true
+    test-on-connect: true
+    validation-query: SELECT 1
+  application:
+    name: CryptoPurse
+  thymeleaf:
+    cache: true
+    mode: HTML5
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  profiles:
+    active: local
+server:
+  port: 8080
+  display-name: CryptoPurse
+  error:
+    whitelabel:
+      enabled: false
+
+management:
+  security:
+    enabled: true
+    role: ADMIN
+
+hibernate:
+  format_sql: false
+  dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  show_sql: false
+  hbm2ddl:
+    auto: none
+
+com:
+  cryptopurse:
+    fullbaseurl: http://localhost:8080
+    ethereum:
+      confirmations: 5
+      gaslimit: 21000
+
+# Logging Configuration
+logging:
+  file: cryptopurse.log
+  path: /var/log/cryptopurse
+  level: info
+
+eureka:
+  instance:
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://cryptopurse-discovery:8761/eureka/

@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/decorator">
+
+<div layout:fragment="header-content">
+
+</div>
+
+<div layout:fragment="main-content">
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <form method="POST" th:method="POST" th:action="@{/register}" class="reg-page">
+                    <div class="reg-header">
+                        <h2>Register a new account</h2>
+                        <p>Already Signed Up? Click <a th:href="@{/login}" class="color-green">Sign In</a> to
+                            login your account.</p>
+                    </div>
+
+                    <div th:if="${errorMessage != null}" class="alert alert-danger fade in">
+                        <strong>Warning!</strong> <span th:text="${errorMessage}"></span>
+                    </div>
+
+                    <label for="registrationEmail">Email Address <span class="color-red">*</span></label>
+                    <input required="required" type="text" name="email" id="registrationEmail" class="form-control margin-bottom-20"/>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="password">Password <span class="color-red">*</span></label>
+                            <input id="password" type="password" required="required" name="password"
+                                   class="form-control margin-bottom-20"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="passwordConfirm">Confirm Password <span class="color-red">*</span></label>
+                            <input id="passwordConfirm" type="password" required="required" name="passwordRepeat"
+                                   class="form-control margin-bottom-20"/>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-lg-6 checkbox">
+                            <label>
+                                <input type="checkbox" name="tos"/>
+                                I read <a target="_blank" th:href="@{/tos}" class="color-green">Terms and Conditions</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <button class="btn-u" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!--/container-->
+</div>
+
+<div layout:fragment="footer-content">
+
+</div>
+
+</html>

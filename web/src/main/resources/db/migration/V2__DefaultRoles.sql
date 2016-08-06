@@ -1,0 +1,1 @@
+insert into role(id, authority) values(1, 'ROLE_USER');

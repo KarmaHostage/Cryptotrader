@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<div th:fragment="topnav">
+
+    <!--=== Header ===-->
+    <div class="header">
+        <div class="container">
+            <h1 class="logo" href="index.html">
+                <div style="margin: 20px 0;">
+                    <span class="color-green">C</span>ryptopurse
+                </div>
+            </h1>
+        </div><!--/end container-->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+            <div class="container">
+                <ul class="nav navbar-nav">
+                    <li class="page-scroll home">
+                        <a th:href="@{/}">Home</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}">Register</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/wallet}">My Wallet</a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/wallet/create}">New Account</a></li>
+                            <li><a th:href="@{/wallet}">Accounts</a></li>
+                            <li><a th:href="@{/transactions}">Transactions</a> </li>
+                            <li><a th:href="@{/account}">Settings</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a th:href="@{/#about}">About us</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div><!--/end container-->
+        </div><!--/navbar-collapse-->
+    </div>
+    <!--=== End Header ===-->
+
+</div>
+
+</body>
+</html>

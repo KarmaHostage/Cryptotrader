@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9">
+<![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!--<![endif]-->
+<head>
+    <title>Cryptopurse | Your Cryptocurrency Wallet</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/favicon.ico}"/>
+
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css'
+          href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'/>
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/plugins/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/one.style.css}"/>
+
+    <!-- CSS Footer -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/footers/footer-v7.css}"/>
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/plugins/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/plugins/line-icons/line-icons.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/assets/unify_hero_classic/assets/plugins/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/plugins/pace/pace-flash.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/plugins/owl-carousel/owl.carousel.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/assets/unify_hero_classic/assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/assets/unify_hero_classic/assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css}"/>
+    <link rel="stylesheet"
+          th:href="@{/assets/unify_hero_classic/assets/plugins/revolution-slider/rs-plugin/css/settings.css}"
+          type="text/css" media="screen"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet"
+          th:href="@{/assets/unify_hero_classic/assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css}"
+          type="text/css" media="screen"/><![endif]-->
+
+    <!-- Style Switcher -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/plugins/style-switcher.css}"/>
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/theme-colors/default.css}"
+          id="style_color"/>
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/theme-skins/one.dark.css}"/>
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" th:href="@{/assets/unify_hero_classic/assets/css/custom.css}"/>
+</head>
+
+<!--
+The #page-top ID is part of the scrolling feature.
+The data-spy and data-target are part of the built-in Bootstrap scrollspy function.
+-->
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+
+<!--=== Header ===-->
+<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="menu-container page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#intro">
+                <span>C</span>ryptopurse
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="page-scroll home">
+                        <a href="#body">Home</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/register}">Register</a>
+                    </li>
+                    <li sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/wallet}" class="dropdown-toggle" data-toggle="dropdown">
+                            My Wallet
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/wallet/create}">New Account</a></li>
+                            <li><a th:href="@{/wallet}">Accounts</a></li>
+                            <li><a th:href="@{/transactions}">Transactions</a> </li>
+                            <li><a th:href="@{/account}">Settings</a></li>
+                        </ul>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#about">About Us</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!--=== End Header ===-->
+
+<!-- Intro Section -->
+<section id="intro" class="intro-section">
+    <div class="fullscreenbanner-container">
+        <div class="fullscreenbanner">
+            <ul>
+                <!-- SLIDE 1 -->
+                <li data-transition="curtain-3" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">
+                    <!-- MAIN IMAGE -->
+                    <img th:src="@{/assets/unify_hero_classic/assets/img/sliders/revolution/woodtop_bg.jpg}"
+                         alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat"/>
+
+                    <!-- LAYERS -->
+                    <div class="tp-caption rs-caption-1 sft start"
+                         data-x="center"
+                         data-hoffset="0"
+                         data-y="100"
+                         data-speed="800"
+                         data-start="2000"
+                         data-easing="Back.easeInOut"
+                         data-endspeed="300">
+                        WE ARE CRYPTOPURSE
+                    </div>
+
+                    <!-- LAYER -->
+                    <div class="tp-caption rs-caption-2 sft"
+                         data-x="center"
+                         data-hoffset="0"
+                         data-y="200"
+                         data-speed="1000"
+                         data-start="3000"
+                         data-easing="Power4.easeOut"
+                         data-endspeed="300"
+                         data-endeasing="Power1.easeIn"
+                         data-captionhidden="off"
+                         style="z-index: 6">
+                        Blockchain wallets as a service.<br/>
+                        We minimize the gap between blockchain technology and its audience, <br /> by providing currency transfers via email or text messages.
+                    </div>
+
+                    <!-- LAYER -->
+                    <div class="tp-caption rs-caption-3 sft"
+                         data-x="center"
+                         data-hoffset="0"
+                         data-y="360"
+                         data-speed="800"
+                         data-start="3500"
+                         data-easing="Power4.easeOut"
+                         data-endspeed="300"
+                         data-endeasing="Power1.easeIn"
+                         data-captionhidden="off"
+                         style="z-index: 6">
+                        <span class="page-scroll"><a href="#about" class="btn-u btn-brd btn-brd-hover btn-u-light">Learn More</a></span>
+                        <span class="page-scroll"><a href="#contact" class="btn-u btn-brd btn-brd-hover btn-u-light">Register now</a></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!-- End Intro Section -->
+
+<!--  About Section -->
+<section id="about" class="about-section section-first">
+
+    <div class="block-v1">
+        <div class="container">
+            <div class="row content-boxes-v3">
+                <div class="col-md-4 md-margin-bottom-30">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-lightbulb-o"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">As a Service</h2>
+                        <p>We host everything, so you don't have to deal with all the ceremony.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 md-margin-bottom-30">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-flask"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Secure</h2>
+                        <p>Using the sturdiest technologies and proven cryptographic algorithms.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <i class="icon-custom rounded-x icon-bg-dark fa fa-bolt"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Easy</h2>
+                        <p>Create wallets with or without an account. It's as easy as a simple click.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-image bg-grey">
+        <div class="container">
+            <div class="title-v1">
+                <h1>CryptoPurse</h1>
+                <p>CryptoPurse is your partner in private cryptographic wallets for blockchain technology. <br/>
+                    Focused on easy of use and military <b>security</b>.</p>
+            </div>
+            <div class="img-center">
+                <img class="img-responsive"
+                     th:src="@{/assets/unify_hero_classic/assets/img/mockup/cryptopurse_screen.png}" alt=""/>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax-quote parallaxBg">
+        <div class="container">
+            <div class="parallax-quote-in">
+                <p>We're not a bank.<br/> We host your wallets <span class="color-green">as if they were our own</span>
+                </p>
+                <small>- CryptoPurse -</small>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container content-lg">
+        <div class="title-v1">
+            <h2>Our Vision And Goal</h2>
+            <p>We know how <b>hard</b> and <b>confusing</b> it can be for non-technical people to manage wallets. With
+                this in mind, we try to
+                create an easy to use wallet service, that's not only fast, but also as quick as it gets to set up and
+                manage.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 content-boxes-v3 margin-bottom-40">
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-trophy"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Ease of use</h2>
+                        <p>Informing you is never a bad thing, but to set up wallets in a secure way requires a lot of
+                            preparation and know-how.
+                            We create and manage wallets so you don't have to.
+                        </p>
+                    </div>
+                </div>
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-directions"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Secure solutions</h2>
+                        <p>Having hot wallets imposes risks of loss due to various reasons. We manage wallets in a
+                            centralized environment, securely hidden in our vaults.</p>
+                    </div>
+                </div>
+                <div class="clearfix margin-bottom-30">
+                    <i class="icon-custom icon-md rounded-x icon-bg-u icon-line icon-diamond"></i>
+                    <div class="content-boxes-in-v3">
+                        <h2 class="heading-sm">Sonically Quick</h2>
+                        <p>Want a wallet? You're only one click removed from having one!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <img class="img-responsive"
+                     th:src="@{/assets/unify_hero_classic/assets/img/mockup/phoneshot_iphone6plus_gold_portrait.png}"
+                     alt=""/>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!--  About Section -->
+
+
+<!-- Contact Section -->
+<section id="contact" class="contacts-section">
+    <div class="container content-lg">
+        <div class="title-v1">
+            <h2>Come join us!</h2>
+        </div>
+
+        <div class="row contacts-in">
+            <div class="col-md-8 col-md-offset-2 md-margin-bottom-40">
+                <form th:action="@{/register}" method="POST">
+                    <div class="reg-header">
+                        <h3>Register a new account</h3>
+                        <p>Already Signed Up? Click <a th:href="@{/login}" class="color-green">Sign In</a> to
+                            login your account.</p>
+                    </div>
+
+                    <label>Email Address <span class="color-red">*</span></label>
+                    <input type="text" required="required" name="email" class="form-control margin-bottom-20"/>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Password <span class="color-red">*</span></label>
+                            <input type="password" name="password" required="required"
+                                   class="form-control margin-bottom-20"/>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Confirm Password <span class="color-red">*</span></label>
+                            <input type="password" name="passwordRepeat" required="required"
+                                   class="form-control margin-bottom-20"/>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-lg-6 checkbox">
+                            <label>
+                                <input name="tos" id="tos" type="checkbox"/>
+                                I read <a th:href="@{/tos}" class="color-green">Terms and Conditions</a>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 text-right">
+                            <button class="btn-u" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright-section">
+        <p>2016 &copy; All Rights Reserved. Cryptopurse
+        </p>
+        <ul class="social-icons">
+            <li><a href="#" data-original-title="Facebook" class="social_facebook rounded-x"></a></li>
+            <li><a href="#" data-original-title="Twitter" class="social_twitter rounded-x"></a></li>
+            <li><a href="#" data-original-title="Google Plus" class="social_googleplus rounded-x"></a></li>
+        </ul>
+        <span class="page-scroll"><a href="#intro"><i class="fa fa-angle-double-up back-to-top"></i></a></span>
+    </div>
+</section>
+<!-- End Contact Section -->
+
+<!-- JS Global Compulsory -->
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/jquery/jquery-migrate.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<!-- JS Implementing Plugins -->
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/smoothScroll.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/jquery.easing.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/pace/pace.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/jquery.parallax.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/counter/waypoints.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/counter/jquery.counterup.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.tools.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js}"></script>
+<!-- JS Page Level-->
+<script th:src="@{/assets/unify_hero_classic/assets/js/one.app.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/forms/login.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/forms/contact.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/pace-loader.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/owl-carousel.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/style-switcher.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/revolution-slider.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/cube-portfolio/cube-portfolio-lightbox.js}"></script>
+<script>
+    jQuery(document).ready(function () {
+        App.init();
+        App.initCounter();
+        App.initParallaxBg();
+        LoginForm.initLoginForm();
+        ContactForm.initContactForm();
+        OwlCarousel.initOwlCarousel();
+        StyleSwitcher.initStyleSwitcher();
+        RevolutionSlider.initRSfullScreen();
+    });
+</script>
+<!--[if lt IE 9]>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/respond.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/html5shiv.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/js/plugins/placeholder-IE-fixes.js}"></script>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/sky-forms-pro/skyforms/js/sky-forms-ie8.js}"></script>
+<![endif]-->
+
+<!--[if lt IE 10]>
+<script th:src="@{/assets/unify_hero_classic/assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js}"></script>
+<![endif]-->
+</body>
+</html>

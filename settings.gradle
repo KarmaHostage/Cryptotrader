@@ -1,0 +1,5 @@
+rootProject.name = theName
+
+include 'web'
+include 'core'
+include 'exchange-api'

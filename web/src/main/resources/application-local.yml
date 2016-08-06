@@ -1,0 +1,23 @@
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/cryptopurse
+    username: cryptopurse
+    password: cryptopurse
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+com:
+  cryptopurse:
+    mail:
+      domain: sandbox871877c7759d4848a400984def71bc05.mailgun.org
+      apikey: key-510847558185974ea3ba84ba7bfd79b9
+      sender: postmaster@sandbox871877c7759d4848a400984def71bc05.mailgun.org
+
+debug: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<head>
+    <title>Cryptopurse | Login</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="favicon.ico"/>
+
+    <!-- Web Fonts -->
+    <link rel='stylesheet' type='text/css'
+          href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'/>
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/style.css}"/>
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/animate.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/line-icons/line-icons.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/font-awesome/css/font-awesome.min.css}"/>
+
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" th:href="@{/assets/unify/css/pages/page_log_reg_v2.css}"/>
+
+    <!-- CSS Theme -->
+    <link rel="stylesheet" th:href="@{/assets/unify/css/theme-colors/default.css}" id="style_color"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/theme-skins/dark.css}"/>
+
+    <!-- CSS Customization -->
+    <link rel="stylesheet" th:href="@{/assets/unify/css/custom.css}"/>
+</head>
+
+<body>
+<!--=== Content Part ===-->
+<div class="container">
+    <!--Reg Block-->
+    <div class="reg-block">
+        <form th:action="@{/login-now-ohai-pentesters}" method="POST">
+            <div class="reg-block-header">
+                <h2>Sign In</h2>
+                <p>Don't Have Account? Click <a class="color-green" th:href="@{/register}">Sign Up</a> to
+                    registration.</p>
+            </div>
+
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="text" class="form-control" name="username" placeholder="Email"/>
+            </div>
+            <div class="input-group margin-bottom-20">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="text" class="form-control" th:type="password" name="password"/>
+            </div>
+            <hr/>
+
+            <div class="checkbox">
+                <label>
+                    <input name="remember-me" type="checkbox"/>
+                    <p>Always stay signed in</p>
+                </label>
+            </div>
+
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <button type="submit" class="btn-u btn-block">Log In</button>
+                </div>
+            </div>
+            <hr/>
+            <p>Forgot your password? Click <a class="color-green" th:href="@{/forgot-password}">Forgot Password</a> to
+                reset your password.</p>
+        </form>
+    </div>
+    <!--End Reg Block-->
+</div><!--/container-->
+<!--=== End Content Part ===-->
+
+<!-- JS Global Compulsory -->
+<script type="text/javascript" th:src="@{/assets/unify/plugins/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/unify/plugins/jquery/jquery-migrate.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/unify/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<!-- JS Implementing Plugins -->
+<script type="text/javascript" th:src="@{/assets/unify/plugins/back-to-top.js}"></script>
+<script type="text/javascript" th:src="@{/assets/unify/plugins/backstretch/jquery.backstretch.min.js}"></script>
+<!-- JS Customization -->
+<script type="text/javascript" th:src="@{/assets/unify/js/custom.js}"></script>
+<!-- JS Page Level -->
+<script type="text/javascript" th:src="@{/assets/unify/js/app.js}"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+    });
+</script>
+<script type="text/javascript">
+    $.backstretch([
+        "/assets/unify_hero_classic/assets/img/sliders/revolution/woodtop_bg.jpg"
+    ], {
+        fade: 1000,
+        duration: 7000
+    });
+</script>
+<!--[if lt IE 9]>
+<script th:src="@{/assets/unify/plugins/respond.js}"></script>
+<script th:src="@{/assets/unify/plugins/html5shiv.js}"></script>
+<script th:src="@{/assets/unify/plugins/placeholder-IE-fixes.js}"></script>
+<![endif]-->
+
+</body>
+</html>

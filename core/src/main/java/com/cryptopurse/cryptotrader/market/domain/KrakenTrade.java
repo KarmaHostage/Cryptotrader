@@ -3,6 +3,7 @@ package com.cryptopurse.cryptotrader.market.domain;
 import org.knowm.xchange.dto.Order;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -14,14 +15,14 @@ public class KrakenTrade {
     private Long id;
 
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "trade_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 
     @Column(name = "tradable_amount")
-    private Double amount;
+    private BigDecimal amount;
 
     @Column(name = "order_type")
     @Enumerated(EnumType.STRING)
@@ -39,11 +40,11 @@ public class KrakenTrade {
         return this;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public KrakenTrade setPrice(Double price) {
+    public KrakenTrade setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -57,11 +58,11 @@ public class KrakenTrade {
         return this;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public KrakenTrade setAmount(Double amount) {
+    public KrakenTrade setAmount(BigDecimal amount) {
         this.amount = amount;
         return this;
     }

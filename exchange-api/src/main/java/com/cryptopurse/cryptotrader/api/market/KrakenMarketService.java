@@ -2,9 +2,9 @@ package com.cryptopurse.cryptotrader.api.market;
 
 import com.cryptopurse.cryptotrader.api.exception.CryptotraderApiException;
 import com.cryptopurse.cryptotrader.api.exception.CryptotraderRateLimitException;
-import org.jvnet.hk2.annotations.Service;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.kraken.KrakenExchange;
+import org.springframework.stereotype.Service;
 
 @Service
 public class KrakenMarketService implements MarketService {

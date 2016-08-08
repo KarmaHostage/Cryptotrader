@@ -1,6 +1,5 @@
 package com.cryptopurse.cryptotrader.market.domain;
 
-import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
 
 import javax.persistence.*;
@@ -28,9 +27,8 @@ public class KrakenTrade {
     @Enumerated(EnumType.STRING)
     private Order.OrderType orderType;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "currency_pair")
-    private CurrencyPair currencyPair;
+    private String currencyPair;
 
     public Long getId() {
         return id;
@@ -77,11 +75,11 @@ public class KrakenTrade {
         return this;
     }
 
-    public CurrencyPair getCurrencyPair() {
+    public String getCurrencyPair() {
         return currencyPair;
     }
 
-    public KrakenTrade setCurrencyPair(CurrencyPair currencyPair) {
+    public KrakenTrade setCurrencyPair(String currencyPair) {
         this.currencyPair = currencyPair;
         return this;
     }

@@ -11,6 +11,9 @@ public class KrakenImportConfiguration {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "currency_pair")
+    private String currencyPair;
+
     @Column(name = "last_import_timestamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastImportTimestamp;
@@ -78,6 +81,15 @@ public class KrakenImportConfiguration {
 
     public KrakenImportConfiguration setPrice(Double price) {
         this.price = price;
+        return this;
+    }
+
+    public String getCurrencyPair() {
+        return currencyPair;
+    }
+
+    public KrakenImportConfiguration setCurrencyPair(String currencyPair) {
+        this.currencyPair = currencyPair;
         return this;
     }
 }

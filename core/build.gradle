@@ -12,6 +12,8 @@ dependencies {
     compile group: 'com.zaxxer', name: 'HikariCP', version: '2.4.7'
     testCompile("com.h2database:h2")
 
+    compile("eu.verdelhan:ta4j:0.8")
+
     compile("io.reactivex:rxjava:1.1.1")
     compile("org.ocpsoft.prettytime:prettytime:4.0.0.Final")
     compile("javax.validation:validation-api:1.1.0.Final")

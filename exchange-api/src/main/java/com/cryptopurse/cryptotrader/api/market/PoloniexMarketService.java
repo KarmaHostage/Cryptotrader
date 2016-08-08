@@ -7,7 +7,6 @@ import org.knowm.xchange.poloniex.PoloniexExchange;
 @Service
 public class PoloniexMarketService implements MarketService {
 
-
     @Override
     public Class<? extends Exchange> exchangeClass() {
         return PoloniexExchange.class;

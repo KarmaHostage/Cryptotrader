@@ -1,4 +1,4 @@
-package com.cryptopurse.cryptotrader.market.indicators;
+package com.cryptopurse.cryptotrader.market.service;
 
 import com.cryptopurse.cryptotrader.market.strategy.CCICorrectionStrategy;
 import com.cryptopurse.cryptotrader.market.strategy.MovingMomentumStrategy;
@@ -12,7 +12,7 @@ import eu.verdelhan.ta4j.trading.rules.UnderIndicatorRule;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IndicatorService {
+public class StrategyService {
 
     public Strategy smaIndicator(TimeSeries timeSeries) {
         ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);

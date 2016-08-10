@@ -1,11 +1,19 @@
 package com.cryptopurse.cryptotrader.market.service;
 
 import com.cryptopurse.cryptotrader.market.domain.KrakenPlacedOrder;
+import com.cryptopurse.cryptotrader.market.repository.KrakenPlacedOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface KrakenPlacedOrderService {
+@Service
+public class KrakenPlacedOrderService {
 
-    List<KrakenPlacedOrder> findAllOpen();
+    @Autowired
+    private KrakenPlacedOrderRepository krakenPlacedOrderRepository;
 
+    public List<KrakenPlacedOrder> findAllOpen() {
+        return krakenPlacedOrderRepository.findAllOpenOrders();
+    }
 }

@@ -2,6 +2,7 @@ package com.cryptopurse.cryptotrader.market.indicators;
 
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.domain.KrakenTradeFixture;
+import com.cryptopurse.cryptotrader.market.service.StrategyService;
 import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
 import eu.verdelhan.ta4j.Strategy;
 import eu.verdelhan.ta4j.TimeSeries;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class IndicatorServiceTest {
 
     @InjectMocks
-    private IndicatorService indicatorService;
+    private StrategyService indicatorService;
     private KrakenTimeSeriesBuilder builder = new KrakenTimeSeriesBuilder();
 
     @Test

@@ -1,7 +1,7 @@
 package com.cryptopurse.cryptotrader.market;
 
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
-import com.cryptopurse.cryptotrader.market.indicators.IndicatorService;
+import com.cryptopurse.cryptotrader.market.service.StrategyService;
 import com.cryptopurse.cryptotrader.market.repository.KrakenTradeRepository;
 import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
 import eu.verdelhan.ta4j.*;
@@ -20,7 +20,7 @@ public class KrakenAdviceLogger {
     @Autowired
     private KrakenTimeSeriesBuilder timeSeriesBuilder;
     @Autowired
-    private IndicatorService indicatorService;
+    private StrategyService indicatorService;
 
     @Scheduled(fixedRate = 60000)
     public void logAdvice() {

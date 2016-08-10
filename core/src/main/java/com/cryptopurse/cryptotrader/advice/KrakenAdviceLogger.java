@@ -1,4 +1,4 @@
-package com.cryptopurse.cryptotrader.market;
+package com.cryptopurse.cryptotrader.advice;
 
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.service.StrategyService;

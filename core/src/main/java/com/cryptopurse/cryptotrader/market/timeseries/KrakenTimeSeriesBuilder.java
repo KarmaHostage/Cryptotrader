@@ -15,8 +15,8 @@ import java.util.Optional;
 @Component
 public class KrakenTimeSeriesBuilder {
 
-    public TimeSeries timeseries(List<KrakenTrade> trades) {
-        List<Tick> ticks = new ArrayList<>();
+    public TimeSeries timeseries(List<KrakenTrade> trades, int timeFrameInSeconds) {
+        List<Tick> ticks;
         Optional<KrakenTrade> firstTrade = trades
                 .stream()
                 .sorted((x1, x2) -> x1.getTime().compareTo(x2.getTime()))
@@ -26,7 +26,7 @@ public class KrakenTimeSeriesBuilder {
                 .sorted((x1, x2) -> x2.getTime().compareTo(x1.getTime()))
                 .findFirst();
 
-        ticks = buildEmptyTicks(new DateTime(firstTrade.get().getTime()), new DateTime(lastTrade.get().getTime()), 300);
+        ticks = buildEmptyTicks(new DateTime(firstTrade.get().getTime()), new DateTime(lastTrade.get().getTime()), timeFrameInSeconds);
 
         for (KrakenTrade trade : trades) {
             DateTime tradeTimestamp = new DateTime(trade.getTime());
@@ -54,7 +54,7 @@ public class KrakenTimeSeriesBuilder {
 
     private static List<Tick> buildEmptyTicks(DateTime beginTime, DateTime endTime, int duration) {
 
-        List<Tick> emptyTicks = new ArrayList<Tick>();
+        List<Tick> emptyTicks = new ArrayList<>();
 
         Period tickTimePeriod = Period.seconds(duration);
         DateTime tickEndTime = beginTime;

@@ -28,7 +28,7 @@ public class KrakenTimeSeriesBuilderTest {
                 .setPrice(new BigDecimal(11));
         KrakenTrade firstTrade = KrakenTradeFixture.aTrade().setTime(DateTime.now().minusMinutes(10).toDate())
                 .setPrice(new BigDecimal(10));
-        TimeSeries timeseries = timeSeriesBuilder.timeseries(Arrays.asList(firstTrade, middleTrade, lastTrade));
+        TimeSeries timeseries = timeSeriesBuilder.timeseries(Arrays.asList(firstTrade, middleTrade, lastTrade), 300);
         assertThat(timeseries).isNotNull();
 
         assertThat(timeseries.getTickCount()).isEqualTo(2);

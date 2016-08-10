@@ -10,8 +10,9 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
-import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -28,13 +29,13 @@ public class KrakenImportJobLauncher {
     @Qualifier("import-kraken-job")
     private Job importWowuction;
 
-    @PostConstruct
+    @Scheduled(fixedDelay = 30000)
     public void startImports() {
         List<KrakenImportConfiguration> importConfigurations = krakenImportConfigurationServiceImpl.getImportConfigurations();
         importConfigurations
                 .forEach(config -> {
                     try {
-                        jobLauncher.run(importWowuction, new JobParametersBuilder()
+                        jobLauncher.run(importWowuction, new JobParametersBuilder().addDate("importTime", new Date())
                                 .addLong("configurationId", config.getId()).toJobParameters());
                     } catch (Exception ex) {
                         LOG.error("unable to start kraken importer " + config.getId().toString());

@@ -4,8 +4,7 @@ import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.indicators.IndicatorService;
 import com.cryptopurse.cryptotrader.market.repository.KrakenTradeRepository;
 import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
-import eu.verdelhan.ta4j.Strategy;
-import eu.verdelhan.ta4j.TimeSeries;
+import eu.verdelhan.ta4j.*;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +36,9 @@ public class KrakenAdviceLogger {
         Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
 
 
-        if (smaIndicator.shouldEnter(timeseries.getEnd())) {
+        TradingRecord myLastOrder = new TradingRecord(Order.buyAt(0, Decimal.valueOf(11.24), Decimal.valueOf(35)));
+
+        if (smaIndicator.shouldEnter(timeseries.getEnd(), myLastOrder)) {
             System.out.println("---> SMA: ENTER at " + timeseries.getLastTick().getClosePrice());
         } else {
             System.out.println("---> SMA EXIT at " + timeseries.getLastTick().getClosePrice());
@@ -74,7 +75,6 @@ public class KrakenAdviceLogger {
         Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
         Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
         Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
-
 
         if (smaIndicator.shouldEnter(timeseries.getEnd())) {
             System.out.println("---> SMA: ENTER at " + timeseries.getLastTick().getClosePrice());
@@ -114,6 +114,42 @@ public class KrakenAdviceLogger {
         Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
         Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
 
+        if (smaIndicator.shouldEnter(timeseries.getEnd())) {
+            System.out.println("---> SMA: ENTER at " + timeseries.getLastTick().getClosePrice());
+        } else {
+            System.out.println("---> SMA EXIT at " + timeseries.getLastTick().getClosePrice());
+        }
+
+        if (mmStrategy.shouldEnter(timeseries.getEnd())) {
+            System.out.println("---> MM: ENTER at " + timeseries.getLastTick().getClosePrice());
+        } else {
+            System.out.println("---> MM EXIT at " + timeseries.getLastTick().getClosePrice());
+        }
+
+        if (cciStrategy.shouldEnter(timeseries.getEnd())) {
+            System.out.println("---> CCI: ENTER at " + timeseries.getLastTick().getClosePrice());
+        } else {
+            System.out.println("---> CCI EXIT at " + timeseries.getLastTick().getClosePrice());
+        }
+        if (rsiStrategy.shouldEnter(timeseries.getEnd())) {
+            System.out.println("---> RSI: ENTER at " + timeseries.getLastTick().getClosePrice());
+        } else {
+            System.out.println("---> RSI EXIT at " + timeseries.getLastTick().getClosePrice());
+        }
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void logAdvice4h() {
+        List<KrakenTrade> recentTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusHours(8).toDate());
+        if (recentTrades.isEmpty()) {
+            return;
+        }
+        System.out.println("Advice for 1hour");
+        TimeSeries timeseries = timeSeriesBuilder.timeseries(recentTrades, 14400);
+        Strategy smaIndicator = indicatorService.smaIndicator(timeseries);
+        Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
+        Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
+        Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
 
         if (smaIndicator.shouldEnter(timeseries.getEnd())) {
             System.out.println("---> SMA: ENTER at " + timeseries.getLastTick().getClosePrice());
@@ -132,7 +168,6 @@ public class KrakenAdviceLogger {
         } else {
             System.out.println("---> CCI EXIT at " + timeseries.getLastTick().getClosePrice());
         }
-
         if (rsiStrategy.shouldEnter(timeseries.getEnd())) {
             System.out.println("---> RSI: ENTER at " + timeseries.getLastTick().getClosePrice());
         } else {

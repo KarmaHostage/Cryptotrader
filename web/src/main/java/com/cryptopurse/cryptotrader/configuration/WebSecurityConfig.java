@@ -32,7 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/trading/**").hasRole("ADMIN")
+                .antMatchers("/trading/**").hasRole("USER")
+                .antMatchers("/indicators/**").hasRole("USER")
+                .antMatchers("/configuraiton/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
@@ -40,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login-now-ohai-pentesters")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/wallet")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error").and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and()

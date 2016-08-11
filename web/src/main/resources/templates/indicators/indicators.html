@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/decorator">
+
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/scrollbar/css/jquery.mCustomScrollbar.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/pages/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css}"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"/>
+</div>
+
+<div layout:fragment="main-content">
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">CryptoPurse's All-In-Carl</h1>
+            <ul class="pull-right breadcrumb">
+                <li class="active"><a th:href="@{/wallet}">Home</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container content-sm">
+        <div class="row">
+            <div class="col-sm-6 sm-margin-bottom-40">
+                <div class="funny-boxes funny-boxes-top-red">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2><a href="#">5 minute TA</a></h2>
+
+                            <p>Not looking very good</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 sm-margin-bottom-40">
+                <div class="funny-boxes funny-boxes-top-sea">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2><a href="#">15 min TA</a></h2>
+                            <p>Not Looking very good</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br />
+
+        <div class="row">
+
+
+            <div class="col-sm-6 sm-margin-bottom-40">
+                <div class="funny-boxes funny-boxes-top-sea">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2><a href="#">1h TA</a></h2>
+                            <p>Not looking very good</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 sm-margin-bottom-40">
+                <div class="funny-boxes funny-boxes-top-sea">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2><a href="#">4h TA</a></h2>
+                            <p>Not looking very good</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-md-offset-3 col-sm-6 sm-margin-bottom-40">
+                <div class="funny-boxes funny-boxes-top-sea">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2><a href="#">1D TA</a></h2>
+                            <p>Not looking very good</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/container-->
+    <!--=== End Service Block ===-->
+</div>
+
+<div layout:fragment="footer-content">
+
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js}"></script>
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/checkout.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/plugins/datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/reg.js}"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table-locale-all.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.initScrollBar();
+        });
+    </script>
+</div>
+
+</html>

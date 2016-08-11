@@ -39,7 +39,7 @@ public class KrakenPlacedOrderAdviceJob {
     private KrakenPlacedOrderAdviceService krakenPlacedOrderAdviceService;
 
     @Scheduled(fixedRate = 60000)
-    public void generateAllAdvices() {
+    public void generateAdvicesPerOrder() {
         List<KrakenTrade> recentTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusDays(14).toDate());
         if (recentTrades.isEmpty()) {
             return;
@@ -49,7 +49,6 @@ public class KrakenPlacedOrderAdviceJob {
     }
 
     private void generateAdvices(List<KrakenTrade> recentTrades, KrakenPlacedOrder order) {
-
         Stream.of(StrategyPeriod.values())
                 .forEach(period -> generateAdvice(period, order, recentTrades));
     }

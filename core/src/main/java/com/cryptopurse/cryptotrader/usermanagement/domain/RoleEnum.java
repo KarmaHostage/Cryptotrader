@@ -2,8 +2,7 @@ package com.cryptopurse.cryptotrader.usermanagement.domain;
 
 public enum RoleEnum {
 
-    ADMIN_ROLE(1L, "ROLE_ADMIN"),
-    USER_ROLE(2L, "ROLE_USER");
+    USER_ROLE(1L, "ROLE_USER");
 
 
     private final Long id;

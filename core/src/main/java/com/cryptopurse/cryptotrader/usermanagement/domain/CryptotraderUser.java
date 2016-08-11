@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "cryptotrader_user")
-public class CryptotraderUser implements UserDetails{
+public class CryptotraderUser implements UserDetails {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -19,18 +19,6 @@ public class CryptotraderUser implements UserDetails{
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "facebook_id")
-    private String facebookId;
-
-    @Column(name = "twitter_id")
-    private String twitterId;
-
-    @Column(name = "access_token")
-    private String accessToken;
-
-    @Column(name = "refresh_token")
-    private String refreshToken;
 
     @Column(name = "account_non_expired", nullable = false,
             columnDefinition = "boolean default true")
@@ -103,42 +91,6 @@ public class CryptotraderUser implements UserDetails{
 
     public CryptotraderUser setPassword(String password) {
         this.password = password;
-        return this;
-    }
-
-    public String getFacebookId() {
-        return facebookId;
-    }
-
-    public CryptotraderUser setFacebookId(String facebookId) {
-        this.facebookId = facebookId;
-        return this;
-    }
-
-    public String getTwitterId() {
-        return twitterId;
-    }
-
-    public CryptotraderUser setTwitterId(String twitterId) {
-        this.twitterId = twitterId;
-        return this;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public CryptotraderUser setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-        return this;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public CryptotraderUser setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
         return this;
     }
 

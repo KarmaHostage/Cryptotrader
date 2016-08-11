@@ -1,5 +1,7 @@
 package com.cryptopurse.cryptotrader.market.domain;
 
+import com.cryptopurse.cryptotrader.usermanagement.domain.CryptotraderUser;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,6 +29,13 @@ public class KrakenPlacedOrder {
     @Column(name = "placed_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date placedAt;
+
+    @Column(name = "currency_pair")
+    private String currencyPair;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private CryptotraderUser user;
 
     public Long getId() {
         return id;
@@ -79,6 +88,24 @@ public class KrakenPlacedOrder {
 
     public KrakenPlacedOrder setPlacedAt(Date placedAt) {
         this.placedAt = placedAt;
+        return this;
+    }
+
+    public String getCurrencyPair() {
+        return currencyPair;
+    }
+
+    public KrakenPlacedOrder setCurrencyPair(String currencyPair) {
+        this.currencyPair = currencyPair;
+        return this;
+    }
+
+    public CryptotraderUser getUser() {
+        return user;
+    }
+
+    public KrakenPlacedOrder setUser(CryptotraderUser user) {
+        this.user = user;
         return this;
     }
 }

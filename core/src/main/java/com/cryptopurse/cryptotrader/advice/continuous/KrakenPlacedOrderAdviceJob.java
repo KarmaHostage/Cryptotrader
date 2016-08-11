@@ -62,6 +62,8 @@ public class KrakenPlacedOrderAdviceJob {
         Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
         Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
         Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
+        Strategy demaStrategy = indicatorService.demaIndicator(timeseries);
+        Strategy macdDStrategy = indicatorService.macdStrategy(timeseries);
 
         System.out.println("Generating advice for period: " + period.name() + "\n");
         try {
@@ -88,6 +90,18 @@ public class KrakenPlacedOrderAdviceJob {
                     order,
                     StrategyType.RSI2,
                     rsiStrategy.shouldOperate(timeseries.getEnd(), new TradingRecord(theOrder)),
+                    period
+            );
+            krakenPlacedOrderAdviceService.giveAdvice(
+                    order,
+                    StrategyType.DEMA,
+                    demaStrategy.shouldOperate(timeseries.getEnd(), new TradingRecord(theOrder)),
+                    period
+            );
+            krakenPlacedOrderAdviceService.giveAdvice(
+                    order,
+                    StrategyType.MACD,
+                    macdDStrategy.shouldOperate(timeseries.getEnd(), new TradingRecord(theOrder)),
                     period
             );
             System.out.println("\n");

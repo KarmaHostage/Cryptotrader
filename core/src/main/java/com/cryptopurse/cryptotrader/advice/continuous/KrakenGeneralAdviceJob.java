@@ -42,6 +42,8 @@ public class KrakenGeneralAdviceJob {
         Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
         Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
         Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
+        Strategy demaStrategy = indicatorService.demaIndicator(timeseries);
+        Strategy macdStrategy = indicatorService.macdStrategy(timeseries);
         System.out.println("General Advice for: " + period);
         try {
             if (smaIndicator.shouldEnter(timeseries.getEnd())) {
@@ -75,6 +77,22 @@ public class KrakenGeneralAdviceJob {
             } else {
                 System.out.println("RSI2: DONT enter order yet");
             }
+            if (demaStrategy.shouldEnter(timeseries.getEnd())) {
+                System.out.println("DEMA: enter an order to BUY");
+            } else if (demaStrategy.shouldExit(timeseries.getEnd())) {
+                System.out.println("DEMA: enter an order to SELL");
+            } else {
+                System.out.println("DEMA: DONT enter order yet");
+            }
+
+            if (macdStrategy.shouldEnter(timeseries.getEnd())) {
+                System.out.println("MACD: enter an order to BUY");
+            } else if (macdStrategy.shouldExit(timeseries.getEnd())) {
+                System.out.println("MACD: enter an order to SELL");
+            } else {
+                System.out.println("MACD: DONT enter order yet");
+            }
+
             System.out.println("\n");
         } catch (Exception ex) {
             System.out.println("the order wasn't found");

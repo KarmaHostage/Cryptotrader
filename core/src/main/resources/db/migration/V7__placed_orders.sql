@@ -1,5 +1,5 @@
 create table kraken_placed_orders(
-  	id BIGINT  NOT NULL PRIMARY KEY ,
+  	id BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     price double not null,
     amount double not null,
     order_type varchar(10) NOT NULL,

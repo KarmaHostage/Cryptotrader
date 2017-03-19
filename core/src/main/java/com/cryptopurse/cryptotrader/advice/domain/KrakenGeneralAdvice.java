@@ -24,7 +24,7 @@ public class KrakenGeneralAdvice {
 
     @Column(name = "strategy_advice")
     @Enumerated(EnumType.STRING)
-    private AdviceEnum adviceEnum;
+    private AdviceEnum advice;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "strategy_time")
@@ -69,12 +69,12 @@ public class KrakenGeneralAdvice {
         return this;
     }
 
-    public AdviceEnum getAdviceEnum() {
-        return adviceEnum;
+    public AdviceEnum getAdvice() {
+        return advice;
     }
 
-    public KrakenGeneralAdvice setAdviceEnum(AdviceEnum adviceEnum) {
-        this.adviceEnum = adviceEnum;
+    public KrakenGeneralAdvice setAdvice(AdviceEnum advice) {
+        this.advice = advice;
         return this;
     }
 

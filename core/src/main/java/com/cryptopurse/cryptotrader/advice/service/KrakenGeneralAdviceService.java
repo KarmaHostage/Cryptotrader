@@ -18,6 +18,18 @@ public class KrakenGeneralAdviceService {
     @Autowired
     private KrakenGeneralAdviceRepository krakenGeneralAdviceRepository;
 
+    public Optional<KrakenGeneralAdvice> findByCurrencyPairAndStrategyPeriodAndStrategyType(
+            String currencyPair,
+            StrategyPeriod strategyPeriod,
+            StrategyType strategyType
+    ) {
+        return krakenGeneralAdviceRepository.findByCurrencyPairAndStrategyPeriodAndStrategyType(
+                currencyPair,
+                strategyPeriod,
+                strategyType
+        );
+    }
+
     @Transactional
     public void giveAdvice(StrategyType strategyType,
                            StrategyPeriod strategyPeriod,
@@ -32,10 +44,9 @@ public class KrakenGeneralAdviceService {
         if (byCurrencyPairAndStrategyPeriodAndStrategyType.isPresent()) {
             krakenGeneralAdviceRepository.save(
                     byCurrencyPairAndStrategyPeriodAndStrategyType.get()
-                            .setConfirmations(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdviceEnum().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getConfirmations() + 1 : 0)
-                            .setStrategyTime(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdviceEnum().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getStrategyTime(): new Date())
-
-                            .setAdviceEnum(advice)
+                            .setConfirmations(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdvice().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getConfirmations() + 1 : 0)
+                            .setStrategyTime(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdvice().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getStrategyTime() : new Date())
+                            .setAdvice(advice)
             );
         } else {
             krakenGeneralAdviceRepository.save(
@@ -43,7 +54,7 @@ public class KrakenGeneralAdviceService {
                             .setStrategyType(strategyType)
                             .setStrategyPeriod(strategyPeriod)
                             .setConfirmations(0)
-                            .setAdviceEnum(advice)
+                            .setAdvice(advice)
                             .setStrategyTime(new Date())
                             .setCurrencyPair(currencyPair)
             );

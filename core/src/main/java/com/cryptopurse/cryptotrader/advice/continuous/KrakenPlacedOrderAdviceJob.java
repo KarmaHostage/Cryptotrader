@@ -60,7 +60,7 @@ public class KrakenPlacedOrderAdviceJob {
         Strategy smaIndicator = indicatorService.smaIndicator(timeseries);
         Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
         Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
-        Strategy rsiStrategy = indicatorService.rsiStrategy(timeseries);
+        Strategy rsiStrategy = indicatorService.rsi2Strategy(timeseries);
         Strategy demaStrategy = indicatorService.demaIndicator(timeseries);
         Strategy macdDStrategy = indicatorService.macdStrategy(timeseries);
 

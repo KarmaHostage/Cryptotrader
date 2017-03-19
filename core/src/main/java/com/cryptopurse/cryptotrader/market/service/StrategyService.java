@@ -52,7 +52,7 @@ public class StrategyService {
         return CCICorrectionStrategy.buildStrategy(timeSeries);
     }
 
-    public Strategy rsiStrategy(TimeSeries timeSeries) {
+    public Strategy rsi2Strategy(TimeSeries timeSeries) {
         return RSI2Strategy.buildStrategy(timeSeries);
     }
 }

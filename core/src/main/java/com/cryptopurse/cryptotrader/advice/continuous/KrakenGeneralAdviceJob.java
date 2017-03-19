@@ -45,7 +45,76 @@ public class KrakenGeneralAdviceJob {
         Strategy smaIndicator = indicatorService.smaIndicator(timeseries);
         Strategy demaStrategy = indicatorService.demaIndicator(timeseries);
         Strategy macdStrategy = indicatorService.macdStrategy(timeseries);
+        Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
+        Strategy rsi2Strategy = indicatorService.rsi2Strategy(timeseries);
+        Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
         try {
+            if (rsi2Strategy.shouldEnter(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.RSI2,
+                        period,
+                        AdviceEnum.BUY,
+                        "ETH/EUR"
+                );
+            } else if (rsi2Strategy.shouldExit(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.RSI2,
+                        period,
+                        AdviceEnum.SELL,
+                        "ETH/EUR"
+                );
+            } else {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.RSI2,
+                        period,
+                        AdviceEnum.SOFT,
+                        "ETH/EUR"
+                );
+            }
+            if (mmStrategy.shouldEnter(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.MM,
+                        period,
+                        AdviceEnum.BUY,
+                        "ETH/EUR"
+                );
+            } else if (mmStrategy.shouldExit(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.MM,
+                        period,
+                        AdviceEnum.SELL,
+                        "ETH/EUR"
+                );
+            } else {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.MM,
+                        period,
+                        AdviceEnum.SOFT,
+                        "ETH/EUR"
+                );
+            }
+            if (cciStrategy.shouldEnter(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.CCI,
+                        period,
+                        AdviceEnum.BUY,
+                        "ETH/EUR"
+                );
+            } else if (cciStrategy.shouldExit(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.CCI,
+                        period,
+                        AdviceEnum.SELL,
+                        "ETH/EUR"
+                );
+            } else {
+                krakenGeneralAdviceService.giveAdvice(
+                        StrategyType.CCI,
+                        period,
+                        AdviceEnum.SOFT,
+                        "ETH/EUR"
+                );
+            }
             if (smaIndicator.shouldEnter(timeseries.getEnd())) {
                 krakenGeneralAdviceService.giveAdvice(
                         StrategyType.SMA,

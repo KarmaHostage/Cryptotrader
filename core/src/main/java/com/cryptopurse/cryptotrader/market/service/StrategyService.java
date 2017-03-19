@@ -1,5 +1,7 @@
 package com.cryptopurse.cryptotrader.market.service;
 
+import com.cryptopurse.cryptotrader.advice.domain.StrategyType;
+import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.strategy.CCICorrectionStrategy;
 import com.cryptopurse.cryptotrader.market.strategy.MovingMomentumStrategy;
 import com.cryptopurse.cryptotrader.market.strategy.RSI2Strategy;
@@ -16,43 +18,53 @@ import org.springframework.stereotype.Component;
 @Component
 public class StrategyService {
 
-    public Strategy smaIndicator(TimeSeries timeSeries) {
-        ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
-        SMAIndicator sma = new SMAIndicator(closePrice, 50);
+    public StrategyWrapper smaIndicator(TimeSeries timeSeries) {
+        final ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
+        final SMAIndicator sma = new SMAIndicator(closePrice, 50);
 
-        return new Strategy(
-                new OverIndicatorRule(sma, closePrice),
-                new UnderIndicatorRule(sma, closePrice)
+        return new StrategyWrapper(
+                new Strategy(
+                        new OverIndicatorRule(sma, closePrice),
+                        new UnderIndicatorRule(sma, closePrice)
+                ),
+                StrategyType.SMA
         );
     }
 
-    public Strategy demaIndicator(TimeSeries timeSeries) {
-        ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
-        DoubleEMAIndicator doubleEMAIndicator = new DoubleEMAIndicator(closePrice, 50);
-        return new Strategy(
-                new OverIndicatorRule(doubleEMAIndicator, closePrice),
-                new UnderIndicatorRule(doubleEMAIndicator, closePrice)
+    public StrategyWrapper demaIndicator(TimeSeries timeSeries) {
+        final ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
+        final DoubleEMAIndicator doubleEMAIndicator = new DoubleEMAIndicator(closePrice, 50);
+        return new StrategyWrapper(
+                new Strategy(
+                        new OverIndicatorRule(doubleEMAIndicator, closePrice),
+                        new UnderIndicatorRule(doubleEMAIndicator, closePrice)
+                ),
+                StrategyType.DEMA);
+    }
+
+    public StrategyWrapper macdStrategy(TimeSeries timeSeries) {
+        final ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
+        final MACDIndicator macdIndicator = new MACDIndicator(closePrice, 10, 21);
+        return new StrategyWrapper(
+                new Strategy(
+                        new OverIndicatorRule(macdIndicator, closePrice),
+                        new UnderIndicatorRule(macdIndicator, closePrice)
+                ),
+                StrategyType.MACD
         );
     }
 
-    public Strategy macdStrategy(TimeSeries timeSeries) {
-        ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
-        MACDIndicator macdIndicator = new MACDIndicator(closePrice, 12, 26);
-        return new Strategy(
-                new OverIndicatorRule(macdIndicator, closePrice),
-                new UnderIndicatorRule(macdIndicator, closePrice)
-        );
+    public StrategyWrapper movingMomentumStrategy(TimeSeries timeSeries) {
+        return new StrategyWrapper(MovingMomentumStrategy.buildStrategy(timeSeries), StrategyType.MM);
     }
 
-    public Strategy movingMomentumStrategy(TimeSeries timeSeries) {
-        return MovingMomentumStrategy.buildStrategy(timeSeries);
+    public StrategyWrapper cciStrategy(TimeSeries timeSeries) {
+        return
+                new StrategyWrapper(CCICorrectionStrategy.buildStrategy(timeSeries),
+                        StrategyType.CCI);
     }
 
-    public Strategy cciStrategy(TimeSeries timeSeries) {
-        return CCICorrectionStrategy.buildStrategy(timeSeries);
-    }
-
-    public Strategy rsi2Strategy(TimeSeries timeSeries) {
-        return RSI2Strategy.buildStrategy(timeSeries);
+    public StrategyWrapper rsi2Strategy(TimeSeries timeSeries) {
+        return new StrategyWrapper(RSI2Strategy.buildStrategy(timeSeries), StrategyType.RSI2);
     }
 }

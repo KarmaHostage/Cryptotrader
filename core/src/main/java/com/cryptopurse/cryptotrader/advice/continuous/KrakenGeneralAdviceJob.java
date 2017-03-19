@@ -2,13 +2,12 @@ package com.cryptopurse.cryptotrader.advice.continuous;
 
 import com.cryptopurse.cryptotrader.advice.domain.AdviceEnum;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
-import com.cryptopurse.cryptotrader.advice.domain.StrategyType;
 import com.cryptopurse.cryptotrader.advice.service.KrakenGeneralAdviceService;
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
+import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.repository.KrakenTradeRepository;
 import com.cryptopurse.cryptotrader.market.service.StrategyService;
 import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
-import eu.verdelhan.ta4j.Strategy;
 import eu.verdelhan.ta4j.TimeSeries;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Configuration
@@ -32,7 +32,7 @@ public class KrakenGeneralAdviceJob {
 
     @Scheduled(fixedRate = 60000)
     public void generateAdvices() {
-        List<KrakenTrade> recentTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusDays(14).toDate());
+        List<KrakenTrade> recentTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusDays(21).toDate());
         if (recentTrades.isEmpty()) {
             return;
         }
@@ -40,150 +40,45 @@ public class KrakenGeneralAdviceJob {
                 .forEach(period -> generateGeneralAdvices(recentTrades, period));
     }
 
-    public void generateGeneralAdvices(List<KrakenTrade> recentTrades, StrategyPeriod period) {
-        TimeSeries timeseries = timeSeriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
-        Strategy smaIndicator = indicatorService.smaIndicator(timeseries);
-        Strategy demaStrategy = indicatorService.demaIndicator(timeseries);
-        Strategy macdStrategy = indicatorService.macdStrategy(timeseries);
-        Strategy cciStrategy = indicatorService.cciStrategy(timeseries);
-        Strategy rsi2Strategy = indicatorService.rsi2Strategy(timeseries);
-        Strategy mmStrategy = indicatorService.movingMomentumStrategy(timeseries);
+    private void generateGeneralAdvices(List<KrakenTrade> recentTrades, StrategyPeriod period) {
         try {
-            if (rsi2Strategy.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.RSI2,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (rsi2Strategy.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.RSI2,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.RSI2,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
-            if (mmStrategy.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MM,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (mmStrategy.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MM,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MM,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
-            if (cciStrategy.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.CCI,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (cciStrategy.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.CCI,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.CCI,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
-            if (smaIndicator.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.SMA,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (smaIndicator.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.SMA,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.SMA,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
-            if (demaStrategy.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.DEMA,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (demaStrategy.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.DEMA,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.DEMA,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
-
-            if (macdStrategy.shouldEnter(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MACD,
-                        period,
-                        AdviceEnum.BUY,
-                        "ETH/EUR"
-                );
-            } else if (macdStrategy.shouldExit(timeseries.getEnd())) {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MACD,
-                        period,
-                        AdviceEnum.SELL,
-                        "ETH/EUR"
-                );
-            } else {
-                krakenGeneralAdviceService.giveAdvice(
-                        StrategyType.MACD,
-                        period,
-                        AdviceEnum.SOFT,
-                        "ETH/EUR"
-                );
-            }
+            final TimeSeries timeseries = timeSeriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
+            Stream.of(indicatorService.smaIndicator(timeseries),
+                    indicatorService.demaIndicator(timeseries),
+                    indicatorService.macdStrategy(timeseries),
+                    indicatorService.cciStrategy(timeseries),
+                    indicatorService.rsi2Strategy(timeseries),
+                    indicatorService.movingMomentumStrategy(timeseries))
+                    .forEach(giveAdviceOnStrategy(period, timeseries));
         } catch (Exception ex) {
-            System.out.println("the order wasn't found");
+            ex.printStackTrace();
         }
+    }
+
+    private Consumer<StrategyWrapper> giveAdviceOnStrategy(StrategyPeriod period, TimeSeries timeseries) {
+        return strategy -> {
+            if (strategy.getStrategy().shouldEnter(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        strategy.getType(),
+                        period,
+                        AdviceEnum.BUY,
+                        "ETH/EUR"
+                );
+            } else if (strategy.getStrategy().shouldExit(timeseries.getEnd())) {
+                krakenGeneralAdviceService.giveAdvice(
+                        strategy.getType(),
+                        period,
+                        AdviceEnum.SELL,
+                        "ETH/EUR"
+                );
+            } else {
+                krakenGeneralAdviceService.giveAdvice(
+                        strategy.getType(),
+                        period,
+                        AdviceEnum.SOFT,
+                        "ETH/EUR"
+                );
+            }
+        };
     }
 }

@@ -29,7 +29,8 @@ public class KrakenTrade {
     private Order.OrderType orderType;
 
     @Column(name = "currency_pair")
-    private String currencyPair;
+    @Enumerated(value = EnumType.STRING)
+    private CurrencyPair currencyPair;
 
     public Long getId() {
         return id;
@@ -76,11 +77,11 @@ public class KrakenTrade {
         return this;
     }
 
-    public String getCurrencyPair() {
+    public CurrencyPair getCurrencyPair() {
         return currencyPair;
     }
 
-    public KrakenTrade setCurrencyPair(String currencyPair) {
+    public KrakenTrade setCurrencyPair(CurrencyPair currencyPair) {
         this.currencyPair = currencyPair;
         return this;
     }

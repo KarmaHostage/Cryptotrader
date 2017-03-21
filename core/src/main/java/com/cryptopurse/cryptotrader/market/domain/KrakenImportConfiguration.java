@@ -12,7 +12,8 @@ public class KrakenImportConfiguration {
     private Long id;
 
     @Column(name = "currency_pair")
-    private String currencyPair;
+    @Enumerated(value = EnumType.STRING)
+    private CurrencyPair currencyPair;
 
     @Column(name = "last_import_timestamp")
     @Temporal(TemporalType.TIMESTAMP)
@@ -48,11 +49,11 @@ public class KrakenImportConfiguration {
         return this;
     }
 
-    public String getCurrencyPair() {
+    public CurrencyPair getCurrencyPair() {
         return currencyPair;
     }
 
-    public KrakenImportConfiguration setCurrencyPair(String currencyPair) {
+    public KrakenImportConfiguration setCurrencyPair(CurrencyPair currencyPair) {
         this.currencyPair = currencyPair;
         return this;
     }

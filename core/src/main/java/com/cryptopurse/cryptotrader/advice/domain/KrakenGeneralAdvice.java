@@ -1,5 +1,7 @@
 package com.cryptopurse.cryptotrader.advice.domain;
 
+import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,7 +14,8 @@ public class KrakenGeneralAdvice {
     private Long id;
 
     @Column(name = "currency_pair")
-    private String currencyPair;
+    @Enumerated(value = EnumType.STRING)
+    private CurrencyPair currencyPair;
 
     @Column(name = "strategy_period")
     @Enumerated(EnumType.STRING)
@@ -42,11 +45,11 @@ public class KrakenGeneralAdvice {
         return this;
     }
 
-    public String getCurrencyPair() {
+    public CurrencyPair getCurrencyPair() {
         return currencyPair;
     }
 
-    public KrakenGeneralAdvice setCurrencyPair(String currencyPair) {
+    public KrakenGeneralAdvice setCurrencyPair(CurrencyPair currencyPair) {
         this.currencyPair = currencyPair;
         return this;
     }

@@ -3,6 +3,7 @@ package com.cryptopurse.cryptotrader.advice.continuous;
 import com.cryptopurse.cryptotrader.advice.domain.AdviceEnum;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
 import com.cryptopurse.cryptotrader.advice.service.KrakenGeneralAdviceService;
+import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.repository.KrakenTradeRepository;
@@ -15,7 +16,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Configuration
@@ -32,15 +35,27 @@ public class KrakenGeneralAdviceJob {
 
     @Scheduled(fixedRate = 60000)
     public void generateAdvices() {
-        List<KrakenTrade> recentTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusDays(21).toDate());
-        if (recentTrades.isEmpty()) {
+        List<KrakenTrade> allTrades = krakenTradeRepository.findRecentTrades(DateTime.now().minusDays(21).toDate());
+        if (allTrades.isEmpty()) {
             return;
         }
-        Stream.of(StrategyPeriod.values())
-                .forEach(period -> generateGeneralAdvices(recentTrades, period));
+        final Map<CurrencyPair, List<KrakenTrade>> tradesPerCurrencypair = allTrades
+                .stream()
+                .collect(Collectors.groupingBy(KrakenTrade::getCurrencyPair));
+
+        tradesPerCurrencypair
+                .forEach(
+                        ((currencyPair, krakenTrades) -> {
+                            Stream.of(StrategyPeriod.values())
+                                    .forEach(period -> generateGeneralAdvices(krakenTrades, period, currencyPair));
+                        })
+                );
+
     }
 
-    private void generateGeneralAdvices(List<KrakenTrade> recentTrades, StrategyPeriod period) {
+    private void generateGeneralAdvices(final List<KrakenTrade> recentTrades,
+                                        final StrategyPeriod period,
+                                        final CurrencyPair currencyPair) {
         try {
             final TimeSeries timeseries = timeSeriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
             Stream.of(indicatorService.smaIndicator(timeseries),
@@ -49,34 +64,36 @@ public class KrakenGeneralAdviceJob {
                     indicatorService.cciStrategy(timeseries),
                     indicatorService.rsi2Strategy(timeseries),
                     indicatorService.movingMomentumStrategy(timeseries))
-                    .forEach(giveAdviceOnStrategy(period, timeseries));
+                    .forEach(giveAdviceOnStrategy(period, timeseries, currencyPair));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private Consumer<StrategyWrapper> giveAdviceOnStrategy(StrategyPeriod period, TimeSeries timeseries) {
+    private Consumer<StrategyWrapper> giveAdviceOnStrategy(final StrategyPeriod period,
+                                                           final TimeSeries timeseries,
+                                                           final CurrencyPair currencyPair) {
         return strategy -> {
             if (strategy.getStrategy().shouldEnter(timeseries.getEnd())) {
                 krakenGeneralAdviceService.giveAdvice(
                         strategy.getType(),
                         period,
                         AdviceEnum.BUY,
-                        "ETH/EUR"
+                        currencyPair
                 );
             } else if (strategy.getStrategy().shouldExit(timeseries.getEnd())) {
                 krakenGeneralAdviceService.giveAdvice(
                         strategy.getType(),
                         period,
                         AdviceEnum.SELL,
-                        "ETH/EUR"
+                        currencyPair
                 );
             } else {
                 krakenGeneralAdviceService.giveAdvice(
                         strategy.getType(),
                         period,
                         AdviceEnum.SOFT,
-                        "ETH/EUR"
+                        currencyPair
                 );
             }
         };

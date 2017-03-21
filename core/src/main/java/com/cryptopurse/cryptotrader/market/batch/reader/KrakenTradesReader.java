@@ -3,7 +3,6 @@ package com.cryptopurse.cryptotrader.market.batch.reader;
 import com.cryptopurse.cryptotrader.api.market.KrakenMarketService;
 import com.cryptopurse.cryptotrader.market.domain.KrakenImportConfiguration;
 import com.cryptopurse.cryptotrader.market.service.KrakenImportConfigurationService;
-import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Trade;
 import org.knowm.xchange.dto.marketdata.Trades;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -40,11 +39,11 @@ public class KrakenTradesReader implements ItemReader<Trade> {
         if (config.isPresent()) {
             KrakenImportConfiguration krakenImportConfiguration = config.get();
             if (krakenImportConfiguration.getLastImportId() != null) {
-                Trades trades = krakenMarketService.getTrades(new CurrencyPair(krakenImportConfiguration.getCurrencyPair()), krakenImportConfiguration.getLastImportId());
+                Trades trades = krakenMarketService.getTrades(krakenImportConfiguration.getCurrencyPair().getXchangePair(), krakenImportConfiguration.getLastImportId());
                 this.trades = trades.getTrades();
                 krakenImportConfigurationServiceImpl.update(krakenImportConfiguration.getId(), trades.getlastID());
             } else {
-                Trades trades = krakenMarketService.getTrades(new CurrencyPair(krakenImportConfiguration.getCurrencyPair()));
+                Trades trades = krakenMarketService.getTrades(krakenImportConfiguration.getCurrencyPair().getXchangePair());
                 this.trades = trades.getTrades();
                 krakenImportConfigurationServiceImpl.update(krakenImportConfiguration.getId(), trades.getlastID());
             }

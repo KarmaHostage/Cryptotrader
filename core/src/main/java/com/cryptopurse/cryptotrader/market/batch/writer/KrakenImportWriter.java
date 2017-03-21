@@ -1,5 +1,6 @@
 package com.cryptopurse.cryptotrader.market.batch.writer;
 
+import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.service.KrakenTradeService;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -24,7 +25,7 @@ public class KrakenImportWriter implements ItemWriter<Trade> {
                 items.stream()
                         .map(trade -> new KrakenTrade()
                                 .setAmount(trade.getTradableAmount())
-                                .setCurrencyPair(trade.getCurrencyPair().toString())
+                                .setCurrencyPair(CurrencyPair.fromXChangeCurrency(trade.getCurrencyPair()))
                                 .setOrderType(trade.getType())
                                 .setTime(trade.getTimestamp())
                                 .setPrice(trade.getPrice()))

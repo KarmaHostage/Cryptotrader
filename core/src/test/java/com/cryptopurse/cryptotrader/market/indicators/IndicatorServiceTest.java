@@ -2,9 +2,9 @@ package com.cryptopurse.cryptotrader.market.indicators;
 
 import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
 import com.cryptopurse.cryptotrader.market.domain.KrakenTradeFixture;
+import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.service.StrategyService;
 import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
-import eu.verdelhan.ta4j.Strategy;
 import eu.verdelhan.ta4j.TimeSeries;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -33,10 +33,10 @@ public class IndicatorServiceTest {
                 .setPrice(new BigDecimal(12));
         TimeSeries timeseries = builder.timeseries(Arrays.asList(firstTrade, middleTrade, lastTrade), 300);
 
-        Strategy indicator = indicatorService.smaIndicator(timeseries);
+        StrategyWrapper indicator = indicatorService.smaIndicator(timeseries);
         assertThat(indicator).isNotNull();
 
-        boolean shouldEnter = indicator.shouldEnter(timeseries.getEnd());
+        boolean shouldEnter = indicator.getStrategy().shouldEnter(timeseries.getEnd());
         assertThat(shouldEnter).isFalse();
     }
 

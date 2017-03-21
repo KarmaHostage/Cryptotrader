@@ -42,9 +42,17 @@ com:
   cryptopurse:
     fullbaseurl: http://localhost:8080
     cryptotrader:
+      messaging:
+        ws:
+          stomp-endpoint: /ws
+          app-endpoint: /app
+          heartbeatMillis: 5000
+          disconnectDelayMillis: 10000
+
       watch:
         exchange: KRAKEN
         currencypair: ETH_EUR
+
 
 # Logging Configuration
 logging:

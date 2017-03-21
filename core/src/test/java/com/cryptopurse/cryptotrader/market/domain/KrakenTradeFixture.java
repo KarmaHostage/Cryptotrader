@@ -11,7 +11,7 @@ public class KrakenTradeFixture {
         return new KrakenTrade()
                 .setTime(new Date())
                 .setOrderType(Order.OrderType.ASK)
-                .setCurrencyPair("ETH/EUR")
+                .setCurrencyPair(CurrencyPair.ETHEUR)
                 .setAmount(new BigDecimal(10))
                 .setPrice(new BigDecimal(12));
     }

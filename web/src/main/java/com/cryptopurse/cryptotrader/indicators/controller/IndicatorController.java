@@ -5,7 +5,6 @@ import com.cryptopurse.cryptotrader.advice.domain.KrakenGeneralAdvice;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyType;
 import com.cryptopurse.cryptotrader.advice.service.KrakenGeneralAdviceService;
-import com.cryptopurse.cryptotrader.indicators.dto.IndicationDto;
 import com.cryptopurse.cryptotrader.indicators.dto.IndicationsDto;
 import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +30,16 @@ public class IndicatorController {
     public String index(ModelMap modelMap,
                         @RequestParam(value = "currencypair", defaultValue = "ETHEUR") CurrencyPair currencyPair) {
 
-        Stream.of(StrategyPeriod.values())
-                .map(
-                        period -> {
-                            return new IndicationsDto()
-                            final List<KrakenGeneralAdvice> generalAdvices = Stream.of(StrategyType.values())
-                                    .map(
-                                            type -> getKrakenGeneralAdvice(type, period, currencyPair)
-                                    ).collect(Collectors.toList());
-                        }
-                )
 
+        List<IndicationsDto> indications = Stream.of(StrategyPeriod.values())
+                .map(
+                        period -> new IndicationsDto(Stream.of(StrategyType.values())
+                                .map(
+                                        type -> getKrakenGeneralAdvice(type, period, currencyPair)
+                                ).collect(Collectors.toList()), period)
+                ).collect(Collectors.toList());
+
+        modelMap.put("indications", indications);
 
         modelMap.put("fiveMinSMA", getKrakenGeneralAdvice(StrategyType.SMA, StrategyPeriod.FIVE_MIN, currencyPair));
         modelMap.put("fiveMinDEMA", getKrakenGeneralAdvice(StrategyType.DEMA, StrategyPeriod.FIVE_MIN, currencyPair));

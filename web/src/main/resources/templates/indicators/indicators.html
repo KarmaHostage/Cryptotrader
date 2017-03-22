@@ -16,216 +16,35 @@
         <div class="container">
             <h1 class="pull-left">CryptoPurse's All-In-Carl</h1>
             <ul class="pull-right breadcrumb">
-                <li class="active"><a th:href="@{/wallet}">Home</a></li>
+                <li><a th:href="@{/}">Home</a></li>
+                <li>Trading</li>
+                <li class="active">Indicators</li>
             </ul>
         </div>
     </div>
     <div class="container content-sm">
         <div class="row">
-            <div class="col-sm-6 sm-margin-bottom-40">
+
+            <div class="col-sm-6 sm-margin-bottom-40" th:each="indication : ${indications}">
+
                 <div class="funny-boxes funny-boxes-top-sea">
                     <div class="row">
                         <div class="col-md-12">
-                            <h2><a href="#">5 minute TA</a></h2>
-
+                            <h2 th:text="${indication.period}"></h2>
                             <p>
                             <ul>
-                                <li>
-                                    SMA: <span th:text="${fiveMinSMA.advice}"></span>
-                                    (<span th:text="${fiveMinSMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    DEMA: <span th:text="${fiveMinDEMA.advice}"></span>
-                                    (<span th:text="${fiveMinDEMA.confirmations}"></span> confirmations)
+                                <li th:each="advice : ${indication.krakenGeneralAdvices}">
 
-                                </li>
-                                <li>
-                                    MACD: <span th:text="${fiveMinMACD.advice}"></span>
-                                    (<span th:text="${fiveMinMACD.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MM: <span th:text="${fiveMinMM.advice}"></span>
-                                    (<span th:text="${fiveMinMM.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    CCI: <span th:text="${fiveMinCCI.advice}"></span>
-                                    (<span th:text="${fiveMinCCI.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    RSI2: <span th:text="${fiveMinRSI2.advice}"></span>
-                                    (<span th:text="${fiveMinRSI2.confirmations}"></span> confirmations)
+                                    <span th:text="${advice.strategyType}"></span>: <span
+                                        th:text="${advice.advice}"></span>
+                                    (<span th:text="${advice.confirmations}"></span> confirmations)
                                 </li>
                             </ul>
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-6 sm-margin-bottom-40">
-                <div class="funny-boxes funny-boxes-top-sea">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2><a href="#">15 min TA</a></h2>
-                            <p>
-                            <ul>
-                                <li>
-                                    SMA: <span th:text="${fifteenMinSMA.advice}"></span>
-                                    (<span th:text="${fifteenMinSMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    DEMA: <span th:text="${fifteenMinDEMA.advice}"></span>
-                                    (<span th:text="${fifteenMinDEMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MACD: <span th:text="${fifteenMinMACD.advice}"></span>
-                                    (<span th:text="${fifteenMinMACD.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MM: <span th:text="${fifteenMinMM.advice}"></span>
-                                    (<span th:text="${fifteenMinMM.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    CCI: <span th:text="${fifteenMinCCI.advice}"></span>
-                                    (<span th:text="${fifteenMinCCI.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    RSI2: <span th:text="${fifteenMinRSI2.advice}"></span>
-                                    (<span th:text="${fifteenMinRSI2.confirmations}"></span> confirmations)
-                                </li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <br/>
-
-        <div class="row">
-
-
-            <div class="col-sm-6 sm-margin-bottom-40">
-                <div class="funny-boxes funny-boxes-top-sea">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2><a href="#">1h TA</a></h2>
-                            <p>
-                            <ul>
-                                <li>
-                                    SMA: <span th:text="${oneHourSMA.advice}"></span>
-                                    (<span th:text="${oneHourSMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    DEMA: <span th:text="${oneHourDEMA.advice}"></span>
-                                    (<span th:text="${oneHourDEMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MACD: <span th:text="${oneHourMACD.advice}"></span>
-                                    (<span th:text="${oneHourMACD.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MM: <span th:text="${oneHourMM.advice}"></span>
-                                    (<span th:text="${oneHourMM.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    CCI: <span th:text="${oneHourCCI.advice}"></span>
-                                    (<span th:text="${oneHourCCI.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    RSI2: <span th:text="${oneHourRSI2.advice}"></span>
-                                    (<span th:text="${oneHourRSI2.confirmations}"></span> confirmations)
-                                </li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 sm-margin-bottom-40">
-                <div class="funny-boxes funny-boxes-top-sea">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2><a href="#">4h TA</a></h2>
-                            <p>
-                            <ul>
-                                <li>
-                                    SMA: <span th:text="${fourHourSMA.advice}"></span>
-                                    (<span th:text="${fourHourSMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    DEMA: <span th:text="${fourHourDEMA.advice}"></span>
-                                    (<span th:text="${fourHourDEMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MACD: <span th:text="${fourHourMACD.advice}"></span>
-                                    (<span th:text="${fourHourMACD.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MM: <span th:text="${fourHourMM.advice}"></span>
-                                    (<span th:text="${fourHourMM.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    CCI: <span th:text="${fourHourCCI.advice}"></span>
-                                    (<span th:text="${fourHourCCI.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    RSI2: <span th:text="${fourHourRSI2.advice}"></span>
-                                    (<span th:text="${fourHourRSI2.confirmations}"></span> confirmations)
-                                </li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <br/>
-
-        <div class="row">
-            <div class="col-md-offset-3 col-sm-6 sm-margin-bottom-40">
-                <div class="funny-boxes funny-boxes-top-sea">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h2><a href="#">1D TA</a></h2>
-                            <p>
-                            <ul>
-                                <li>
-                                    SMA: <span th:text="${oneDaySMA.advice}"></span>
-                                    (<span th:text="${oneDaySMA.confirmations}"></span> confirmations)
-
-                                </li>
-                                <li>
-                                    DEMA: <span th:text="${oneDayDEMA.advice}"></span>
-                                    (<span th:text="${oneDayDEMA.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MACD: <span th:text="${oneDayMACD.advice}"></span>
-                                    (<span th:text="${oneDayMACD.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    MM: <span th:text="${oneDayMM.advice}"></span>
-                                    (<span th:text="${oneDayMM.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    CCI: <span th:text="${oneDayCCI.advice}"></span>
-                                    (<span th:text="${oneDayCCI.confirmations}"></span> confirmations)
-                                </li>
-                                <li>
-                                    RSI2: <span th:text="${oneDayRSI2.advice}"></span>
-                                    (<span th:text="${oneDayRSI2.confirmations}"></span> confirmations)
-                                </li>
-                            </ul>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <br/>
             </div>
         </div>
     </div><!--/container-->
@@ -260,10 +79,10 @@
 
 		function logWebSocket(body) {
 			console.log("get answer!");
-            console.log(body)
+			console.log(body)
 		}
 
-        WebSockets
+		WebSockets
 			.connect('/topic/krakenvolume', logWebSocket);
     </script>
 </div>

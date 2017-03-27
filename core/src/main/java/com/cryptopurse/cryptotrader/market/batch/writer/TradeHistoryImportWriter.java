@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,13 +24,21 @@ public class TradeHistoryImportWriter implements ItemWriter<Trade> {
     private TradehistoryService tradehistoryService;
     @Autowired
     private ImportConfigurationService importConfigurationServiceImpl;
-    private final ImportConfiguration importConfig;
+    private ImportConfiguration importConfig;
+    private Long configurationId;
 
-
+    @Autowired
     public TradeHistoryImportWriter(@Value("#{jobParameters['configurationId']}") final Long configurationId) {
-        this.importConfig = importConfigurationServiceImpl.findOne(configurationId).orElseThrow(
-                () -> new IllegalArgumentException("Unable to find configuration for this job")
-        );
+        this.configurationId = configurationId;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (configurationId != null) {
+            this.importConfig = importConfigurationServiceImpl.findOne(configurationId).orElseThrow(
+                    () -> new IllegalArgumentException("Unable to find configuration for this job")
+            );
+        }
     }
 
     @Override

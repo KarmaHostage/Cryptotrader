@@ -4,6 +4,7 @@ import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchange
 import com.cryptopurse.cryptotrader.usermanagement.domain.CryptotraderUser;
 
 import javax.persistence.*;
+import java.util.Currency;
 import java.util.Date;
 
 @Entity
@@ -32,7 +33,8 @@ public class UserTrade {
     private Date placedAt;
 
     @Column(name = "currency_pair")
-    private String currencyPair;
+    @Enumerated(EnumType.STRING)
+    private CurrencyPair currencyPair;
 
     @Column(name = "exchange")
     @Enumerated(value = EnumType.STRING)
@@ -96,11 +98,11 @@ public class UserTrade {
         return this;
     }
 
-    public String getCurrencyPair() {
+    public CurrencyPair getCurrencyPair() {
         return currencyPair;
     }
 
-    public UserTrade setCurrencyPair(String currencyPair) {
+    public UserTrade setCurrencyPair(CurrencyPair currencyPair) {
         this.currencyPair = currencyPair;
         return this;
     }

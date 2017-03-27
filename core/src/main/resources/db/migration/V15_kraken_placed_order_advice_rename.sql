@@ -1,1 +1,0 @@
-rename table kraken_placed_order_advice to user_trade_advice;

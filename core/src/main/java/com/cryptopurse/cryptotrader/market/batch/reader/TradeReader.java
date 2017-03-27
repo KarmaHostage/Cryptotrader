@@ -26,7 +26,7 @@ public class TradeReader implements ItemReader<Trade> {
     @Autowired
     private ImportConfigurationService importConfigurationServiceImpl;
     @Autowired
-    private Map<SupportedExchanges, MarketService> marketServicesPerSuppportedExchange;
+    private Map<SupportedExchanges, ? extends MarketService> marketServicesPerSuppportedExchange;
 
     private List<Trade> trades = new ArrayList<>();
     private Long configurationId;
@@ -38,6 +38,10 @@ public class TradeReader implements ItemReader<Trade> {
 
     @PostConstruct
     public void fetchTrades() {
+        if (configurationId == null) {
+            return;
+        }
+
         final Optional<ImportConfiguration> config = importConfigurationServiceImpl.findOne(configurationId);
 
         if (config.isPresent()) {

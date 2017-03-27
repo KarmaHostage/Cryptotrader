@@ -1,27 +1,26 @@
 package com.cryptopurse.cryptotrader.indicators.dto;
 
-import com.cryptopurse.cryptotrader.advice.domain.KrakenGeneralAdvice;
+import com.cryptopurse.cryptotrader.advice.domain.GeneralAdvice;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
-import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
 
 import java.util.List;
 
 public class IndicationsDto {
 
-    private List<KrakenGeneralAdvice> krakenGeneralAdvices;
+    private List<GeneralAdvice> generalAdvices;
     private StrategyPeriod period;
 
-    public IndicationsDto(List<KrakenGeneralAdvice> krakenGeneralAdvices, StrategyPeriod period) {
-        this.krakenGeneralAdvices = krakenGeneralAdvices;
+    public IndicationsDto(List<GeneralAdvice> generalAdvices, StrategyPeriod period) {
+        this.generalAdvices = generalAdvices;
         this.period = period;
     }
 
-    public List<KrakenGeneralAdvice> getKrakenGeneralAdvices() {
-        return krakenGeneralAdvices;
+    public List<GeneralAdvice> getGeneralAdvices() {
+        return generalAdvices;
     }
 
-    public IndicationsDto setKrakenGeneralAdvices(List<KrakenGeneralAdvice> krakenGeneralAdvices) {
-        this.krakenGeneralAdvices = krakenGeneralAdvices;
+    public IndicationsDto setGeneralAdvices(List<GeneralAdvice> generalAdvices) {
+        this.generalAdvices = generalAdvices;
         return this;
     }
 

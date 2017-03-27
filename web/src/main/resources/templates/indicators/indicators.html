@@ -41,7 +41,7 @@
                         <div class="col-md-12">
                             <h2 th:text="${indication.period}"></h2>
                             <ul>
-                                <li th:each="advice : ${indication.krakenGeneralAdvices}">
+                                <li th:each="advice : ${indication.generalAdvices}">
 
                                     <span th:text="${advice.strategyType}"></span>: <span
                                         th:text="${advice.advice}"></span>

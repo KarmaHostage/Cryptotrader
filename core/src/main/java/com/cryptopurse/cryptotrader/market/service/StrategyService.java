@@ -42,17 +42,6 @@ public class StrategyService {
                 StrategyType.DEMA);
     }
 
-    public StrategyWrapper macdStrategy(TimeSeries timeSeries) {
-        final ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);
-        final MACDIndicator macdIndicator = new MACDIndicator(closePrice, 10, 21);
-        return new StrategyWrapper(
-                new Strategy(
-                        new OverIndicatorRule(macdIndicator, closePrice),
-                        new UnderIndicatorRule(macdIndicator, closePrice)
-                ),
-                StrategyType.MACD
-        );
-    }
 
     public StrategyWrapper movingMomentumStrategy(TimeSeries timeSeries) {
         return new StrategyWrapper(MovingMomentumStrategy.buildStrategy(timeSeries), StrategyType.MM);

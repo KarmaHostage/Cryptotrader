@@ -12,7 +12,7 @@ public interface MarketService {
 
         try {
             Exchange theExchange = getExchange();
-            return theExchange.getPollingMarketDataService().getTicker(currencyPair);
+            return theExchange.getMarketDataService().getTicker(currencyPair);
         } catch (Exception ex) {
             throw handleException(ex);
         }
@@ -21,7 +21,7 @@ public interface MarketService {
     default Ticker getTicker(CurrencyPair currencyPair, long startDate, long endDate) {
         try {
             Exchange theExchange = getExchange();
-            return theExchange.getPollingMarketDataService().getTicker(currencyPair, startDate, endDate);
+            return theExchange.getMarketDataService().getTicker(currencyPair, startDate, endDate);
         } catch (Exception ex) {
             throw handleException(ex);
         }
@@ -31,7 +31,7 @@ public interface MarketService {
     default Trades getTrades(CurrencyPair currencyPair) {
         try {
             Exchange theExchange = getExchange();
-            return theExchange.getPollingMarketDataService().getTrades(currencyPair);
+            return theExchange.getMarketDataService().getTrades(currencyPair);
         } catch (Exception ex) {
             throw handleException(ex);
         }
@@ -40,7 +40,7 @@ public interface MarketService {
     default Trades getTrades(CurrencyPair currencyPair, Long... times) {
         try {
             Exchange theExchange = getExchange();
-            return theExchange.getPollingMarketDataService().getTrades(currencyPair, times);
+            return theExchange.getMarketDataService().getTrades(currencyPair, times);
         } catch (Exception ex) {
             throw handleException(ex);
         }

@@ -6,7 +6,6 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.kraken.KrakenExchange;
 import org.springframework.stereotype.Service;
 
-@Service
 public class KrakenMarketService implements MarketService {
 
     @Override

@@ -1,10 +1,11 @@
 package com.cryptopurse.cryptotrader.timeseries;
 
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
+import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchanges;
 import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
-import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
-import com.cryptopurse.cryptotrader.market.service.KrakenTradeService;
-import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
+import com.cryptopurse.cryptotrader.market.domain.TradeHistory;
+import com.cryptopurse.cryptotrader.market.service.TradehistoryService;
+import com.cryptopurse.cryptotrader.market.timeseries.TimeseriesBuilder;
 import eu.verdelhan.ta4j.TimeSeries;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +29,20 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class TimeseriesExportController {
 
     @Autowired
-    private KrakenTradeService krakenTradeService;
+    private TradehistoryService tradehistoryService;
     @Autowired
-    private KrakenTimeSeriesBuilder krakenTimeSeriesBuilder;
+    private TimeseriesBuilder timeseriesBuilder;
 
     @RequestMapping(method = GET)
-    public List<TimeseriesDto> export(@RequestParam(value = "period", defaultValue = "FIVE_MIN") StrategyPeriod period) {
-        final List<KrakenTrade> recentTrades = krakenTradeService.findRecentTrades(
-                Date.from(LocalDateTime.now().minus(2, ChronoUnit.DAYS).toInstant(ZoneOffset.UTC)))
+    public List<TimeseriesDto> export(@RequestParam(value = "period", defaultValue = "FIVE_MIN") StrategyPeriod period,
+                                      @RequestParam(value = "exchange", defaultValue = "KRAKEN") SupportedExchanges exchange) {
+        final List<TradeHistory> recentTrades = tradehistoryService.findRecentTrades(
+                Date.from(LocalDateTime.now().minus(2, ChronoUnit.DAYS).toInstant(ZoneOffset.UTC)), exchange)
                 .stream()
                 .filter(x -> x.getCurrencyPair().equals(CurrencyPair.ETHBTC))
                 .collect(Collectors.toList());
-        TimeSeries timeseries = krakenTimeSeriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
-        int amountOfTixs = timeseries.getTickCount();
+        final TimeSeries timeseries = timeseriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
+        final int amountOfTixs = timeseries.getTickCount();
         return IntStream.range(0, amountOfTixs)
                 .mapToObj(timeseries::getTick)
                 .map(tick -> new TimeseriesDto(

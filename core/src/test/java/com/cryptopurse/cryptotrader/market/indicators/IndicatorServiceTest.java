@@ -1,10 +1,10 @@
 package com.cryptopurse.cryptotrader.market.indicators;
 
-import com.cryptopurse.cryptotrader.market.domain.KrakenTrade;
-import com.cryptopurse.cryptotrader.market.domain.KrakenTradeFixture;
+import com.cryptopurse.cryptotrader.market.domain.TradeHistory;
+import com.cryptopurse.cryptotrader.market.domain.TradeHistoryFixture;
 import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.service.StrategyService;
-import com.cryptopurse.cryptotrader.market.timeseries.KrakenTimeSeriesBuilder;
+import com.cryptopurse.cryptotrader.market.timeseries.TimeseriesBuilder;
 import eu.verdelhan.ta4j.TimeSeries;
 import org.joda.time.DateTime;
 import org.junit.Test;
@@ -22,14 +22,14 @@ public class IndicatorServiceTest {
 
     @InjectMocks
     private StrategyService indicatorService;
-    private KrakenTimeSeriesBuilder builder = new KrakenTimeSeriesBuilder();
+    private TimeseriesBuilder builder = new TimeseriesBuilder();
 
     @Test
     public void createSmaIndicator() throws Exception {
-        KrakenTrade lastTrade = KrakenTradeFixture.aTrade();
-        KrakenTrade middleTrade = KrakenTradeFixture.aTrade().setTime(DateTime.now().minusMinutes(4).toDate())
+        TradeHistory lastTrade = TradeHistoryFixture.aTrade();
+        TradeHistory middleTrade = TradeHistoryFixture.aTrade().setTime(DateTime.now().minusMinutes(4).toDate())
                 .setPrice(new BigDecimal(8));
-        KrakenTrade firstTrade = KrakenTradeFixture.aTrade().setTime(DateTime.now().minusMinutes(10).toDate())
+        TradeHistory firstTrade = TradeHistoryFixture.aTrade().setTime(DateTime.now().minusMinutes(10).toDate())
                 .setPrice(new BigDecimal(12));
         TimeSeries timeseries = builder.timeseries(Arrays.asList(firstTrade, middleTrade, lastTrade), 300);
 

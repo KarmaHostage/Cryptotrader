@@ -36,12 +36,8 @@ public class GeneralAdviceJob {
 
     @Scheduled(fixedRate = 60000)
     public void generateAdvices() {
-
-
         givePoloniexAdvices();
         giveKrakenAdvices();
-
-
     }
 
     private void givePoloniexAdvices() {

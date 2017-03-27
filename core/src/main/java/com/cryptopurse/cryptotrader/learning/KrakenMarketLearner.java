@@ -28,6 +28,8 @@ import java.util.stream.Stream;
 
 @Component
 public class KrakenMarketLearner {
+
+
 /*
     @Autowired
     private KrakenTradeRepository krakenTradeRepository;

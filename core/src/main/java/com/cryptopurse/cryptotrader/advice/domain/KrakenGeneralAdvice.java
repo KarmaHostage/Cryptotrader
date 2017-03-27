@@ -33,6 +33,10 @@ public class KrakenGeneralAdvice {
     @Column(name = "strategy_time")
     private Date strategyTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "strategy_time_first_occurrence")
+    private Date strategyTimeFirstOccurrence;
+
     @Column(name = "confirmations")
     private int confirmations;
 
@@ -96,6 +100,15 @@ public class KrakenGeneralAdvice {
 
     public KrakenGeneralAdvice setConfirmations(int confirmations) {
         this.confirmations = confirmations;
+        return this;
+    }
+
+    public Date getStrategyTimeFirstOccurrence() {
+        return strategyTimeFirstOccurrence;
+    }
+
+    public KrakenGeneralAdvice setStrategyTimeFirstOccurrence(final Date strategyTimeFirstOccurrence) {
+        this.strategyTimeFirstOccurrence = strategyTimeFirstOccurrence;
         return this;
     }
 }

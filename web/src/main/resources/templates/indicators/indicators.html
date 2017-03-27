@@ -24,6 +24,15 @@
     </div>
     <div class="container content-sm">
         <div class="row">
+            <div class="col-md-12">
+                <h1>Trend analysis per timeframe</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="chart_div" style="width: 100%; height: 600px;"></div>
+        </div>
+        <div class="row">
 
             <div class="col-sm-6 sm-margin-bottom-40" th:each="indication : ${indications}">
 
@@ -31,7 +40,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h2 th:text="${indication.period}"></h2>
-                            <p>
                             <ul>
                                 <li th:each="advice : ${indication.krakenGeneralAdvices}">
 
@@ -40,13 +48,13 @@
                                     (<span th:text="${advice.confirmations}"></span> confirmations)
                                 </li>
                             </ul>
-                            </p>
                         </div>
                     </div>
                 </div>
                 <br/>
             </div>
         </div>
+
     </div><!--/container-->
     <!--=== End Service Block ===-->
 </div>
@@ -84,6 +92,69 @@
 
 		WebSockets
 			.connect('/topic/krakenvolume', logWebSocket);
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+		google.charts.load('current', {'packages': ['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		function tooltipContent(tick) {
+			return '<p>low: ' + tick.low + '</p><p>high: ' + tick.high + '</p>';
+		}
+
+		function drawChart() {
+
+			var myArray = [];
+
+
+			$.get("/rest/timeseries", function (result) {
+				$.each(result, function (idx, value) {
+					myArray.push(['value', value.low, value.open, value.closed, value.high, tooltipContent(value)]);
+				});
+
+				var data = google.visualization.arrayToDataTable(
+					myArray, true);
+
+
+				data.setColumnProperty(5, 'role', 'tooltip');
+
+				var options = {
+					legend: 'none',
+					animation: {
+						startup: true,
+						easing: 'in'
+					},
+					tooltip: {
+						isHtml: true
+					},
+					vAxis: {
+						format: 'decimal'
+					},
+					candlestick: {
+						fallingColor: {strokeWidth: 0, fill: '#a52714'}, // red
+						risingColor: {strokeWidth: 0, fill: '#0f9d58'}   // green
+					}
+				};
+
+				var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+
+				chart.draw(data, options);
+			});
+
+
+            /*
+             var data = google.visualization.arrayToDataTable([
+             ['Mon', 20, 28, 38, 45],
+             ['Tue', 31, 38, 55, 66],
+             ['Wed', 50, 55, 77, 80],
+             ['Thu', 77, 77, 66, 50],
+             ['Fri', 68, 66, 22, 15]
+             // Treat first row as data as well.
+             ], true);
+             */
+
+		}
     </script>
 </div>
 

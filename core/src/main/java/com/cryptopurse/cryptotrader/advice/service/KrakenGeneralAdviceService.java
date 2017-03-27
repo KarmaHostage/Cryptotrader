@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Date;
 import java.util.Optional;
 
@@ -33,32 +38,77 @@ public class KrakenGeneralAdviceService {
     @Transactional
     public void giveAdvice(StrategyType strategyType,
                            StrategyPeriod strategyPeriod,
-                           AdviceEnum advice,
+                           AdviceEnum newAdvice,
                            CurrencyPair currencyPair) {
-        Optional<KrakenGeneralAdvice> byCurrencyPairAndStrategyPeriodAndStrategyType = krakenGeneralAdviceRepository.findByCurrencyPairAndStrategyPeriodAndStrategyType(
+        final Optional<KrakenGeneralAdvice> previousAdvice = krakenGeneralAdviceRepository.findByCurrencyPairAndStrategyPeriodAndStrategyType(
                 currencyPair,
                 strategyPeriod,
                 strategyType
         );
 
-        if (byCurrencyPairAndStrategyPeriodAndStrategyType.isPresent()) {
+        if (previousAdvice.isPresent()) {
             krakenGeneralAdviceRepository.save(
-                    byCurrencyPairAndStrategyPeriodAndStrategyType.get()
-                            .setConfirmations(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdvice().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getConfirmations() + 1 : 0)
-                            .setStrategyTime(byCurrencyPairAndStrategyPeriodAndStrategyType.get().getAdvice().equals(advice) ? byCurrencyPairAndStrategyPeriodAndStrategyType.get().getStrategyTime() : new Date())
-                            .setAdvice(advice)
+                    previousAdvice.get()
+                            .setConfirmations(
+                                    calculateConfirmations(newAdvice, previousAdvice.get())
+                            )
+                            .setStrategyTimeFirstOccurrence(
+                                    calculateStrategyTimeFirstOccurrence(newAdvice, previousAdvice.get())
+                            )
+                            .setStrategyTime(calculateStrategyTime(newAdvice, previousAdvice.get()))
+                            .setAdvice(newAdvice)
             );
         } else {
             krakenGeneralAdviceRepository.save(
-                    new KrakenGeneralAdvice()
-                            .setStrategyType(strategyType)
-                            .setStrategyPeriod(strategyPeriod)
-                            .setConfirmations(0)
-                            .setAdvice(advice)
-                            .setStrategyTime(new Date())
-                            .setCurrencyPair(currencyPair)
+                    newAdvice(strategyType, strategyPeriod, newAdvice, currencyPair)
             );
         }
+    }
+
+    public Date calculateStrategyTime(final AdviceEnum advice, final KrakenGeneralAdvice previousAdvice) {
+        if (previousAdvice.getAdvice().equals(advice)) {
+            if (periodHasPassed(previousAdvice)) {
+                return new Date();
+            } else {
+                return previousAdvice.getStrategyTime();
+            }
+        } else {
+            return new Date();
+        }
+    }
+
+    public KrakenGeneralAdvice newAdvice(final StrategyType strategyType, final StrategyPeriod strategyPeriod, final AdviceEnum advice, final CurrencyPair currencyPair) {
+        return new KrakenGeneralAdvice()
+                .setStrategyType(strategyType)
+                .setStrategyPeriod(strategyPeriod)
+                .setConfirmations(0)
+                .setAdvice(advice)
+                .setStrategyTime(new Date())
+                .setStrategyTimeFirstOccurrence(new Date())
+                .setCurrencyPair(currencyPair);
+    }
+
+    public Date calculateStrategyTimeFirstOccurrence(final AdviceEnum advice,
+                                                     final KrakenGeneralAdvice previousAdvice) {
+        return previousAdvice.getAdvice().equals(advice) ? previousAdvice.getStrategyTimeFirstOccurrence() : new Date();
+    }
+
+    public int calculateConfirmations(final AdviceEnum advice, final KrakenGeneralAdvice previousAdvice) {
+        if (previousAdvice.getAdvice().equals(advice) && periodHasPassed(previousAdvice)) {
+            if (periodHasPassed(previousAdvice)) {
+                return (previousAdvice.getConfirmations() + 1);
+            } else {
+                return previousAdvice.getConfirmations();
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    private boolean periodHasPassed(final KrakenGeneralAdvice previousAdvice) {
+        final LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime threshold = now.minus(previousAdvice.getStrategyPeriod().getTimeframeInSeconds(), ChronoUnit.SECONDS);
+        return (threshold.isAfter(LocalDateTime.ofInstant(previousAdvice.getStrategyTime().toInstant(), ZoneId.systemDefault())));
     }
 
 }

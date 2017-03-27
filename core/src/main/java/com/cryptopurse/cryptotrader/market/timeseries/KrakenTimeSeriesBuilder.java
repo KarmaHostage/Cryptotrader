@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class KrakenTimeSeriesBuilder {
         List<Tick> ticks;
         Optional<KrakenTrade> firstTrade = trades
                 .stream()
-                .sorted((x1, x2) -> x1.getTime().compareTo(x2.getTime()))
+                .sorted(Comparator.comparing(KrakenTrade::getTime))
                 .findFirst();
         Optional<KrakenTrade> lastTrade = trades
                 .stream()

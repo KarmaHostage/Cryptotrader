@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping(value = "/indicators", method = RequestMethod.GET)
+@RequestMapping(value = "/indicators")
 public class IndicatorController {
 
     @Autowired
@@ -29,14 +29,14 @@ public class IndicatorController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap modelMap,
-                        @RequestParam(value = "currencypair", defaultValue = "ETHEUR") final CurrencyPair currencyPair,
-                        @RequestParam(value = "exchange", defaultValue = "KRAKEN") final SupportedExchanges exchange) {
+                        @RequestParam(name = "exchange", defaultValue = "KRAKEN") final SupportedExchanges exchange,
+                        @RequestParam(name = "pair", defaultValue = "ETHEUR") final CurrencyPair pair) {
 
         final List<IndicationsDto> indications = Stream.of(StrategyPeriod.values())
                 .map(
                         period -> new IndicationsDto(Stream.of(StrategyType.values())
                                 .map(
-                                        type -> getGeneralAdvice(type, period, currencyPair, exchange)
+                                        type -> getGeneralAdvice(type, period, pair, exchange)
                                 ).collect(Collectors.toList()), period)
                 ).collect(Collectors.toList());
 

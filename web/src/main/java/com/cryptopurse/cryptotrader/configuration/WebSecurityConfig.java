@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/trading/**").hasRole("USER")
                 .antMatchers("/indicators/**").hasRole("USER")
-                .antMatchers("/configuraiton/**").hasRole("USER")
+                .antMatchers("/configuraton/**").hasRole("USER")
                 .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()

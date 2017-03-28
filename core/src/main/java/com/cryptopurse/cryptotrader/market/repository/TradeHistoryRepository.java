@@ -19,4 +19,6 @@ public interface TradeHistoryRepository extends JpaRepository<TradeHistory, Long
     List<TradeHistory> findRecentTrades(@Param("startTime") Date startTime, @Param("exchange") SupportedExchanges exchange,
                                         @Param("currencyPair") CurrencyPair currencyPair);
 
+    void deleteTradeHistoryByTimeBefore(@Param("time") Date time);
+
 }

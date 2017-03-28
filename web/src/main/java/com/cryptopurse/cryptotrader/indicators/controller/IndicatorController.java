@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
-@RequestMapping(value = "/indicators")
+@RequestMapping(value = "/indicators", method = RequestMethod.GET)
 public class IndicatorController {
 
     @Autowired

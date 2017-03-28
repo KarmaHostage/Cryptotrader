@@ -100,7 +100,7 @@ public class GeneralAdviceService {
     }
 
     public int calculateConfirmations(final AdviceEnum advice, final GeneralAdvice previousAdvice) {
-        if (previousAdvice.getAdvice().equals(advice) && periodHasPassed(previousAdvice)) {
+        if (previousAdvice.getAdvice().equals(advice)) {
             if (periodHasPassed(previousAdvice)) {
                 return (previousAdvice.getConfirmations() + 1);
             } else {

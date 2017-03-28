@@ -83,7 +83,7 @@ public class GeneralAdviceJob {
                                                            final TimeSeries timeseries,
                                                            final CurrencyPair currencyPair,
                                                            final SupportedExchanges exchange) {
-        return strategy -> {
+         return strategy -> {
             if (strategy.getStrategy().shouldEnter(timeseries.getEnd())) {
                 generalAdviceService.giveAdvice(
                         strategy.getType(),

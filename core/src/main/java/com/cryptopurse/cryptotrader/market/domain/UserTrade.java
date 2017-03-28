@@ -80,15 +80,6 @@ public class UserTrade {
         return this;
     }
 
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public UserTrade setClosed(boolean closed) {
-        this.closed = closed;
-        return this;
-    }
-
     public Date getPlacedAt() {
         return placedAt;
     }

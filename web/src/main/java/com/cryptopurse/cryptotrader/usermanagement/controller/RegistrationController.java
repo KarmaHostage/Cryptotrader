@@ -2,6 +2,7 @@ package com.cryptopurse.cryptotrader.usermanagement.controller;
 
 import com.cryptopurse.cryptotrader.usermanagement.controller.dto.RegistrationDto;
 import com.cryptopurse.cryptotrader.usermanagement.service.UserService;
+import com.cryptopurse.cryptotrader.usermanagement.utils.SecurityUtility;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -27,13 +28,10 @@ public class RegistrationController {
 
     @RequestMapping(method = GET)
     public String index() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null
-                && authentication.isAuthenticated()
-                && !authentication.getPrincipal().equals("anonymousUser")) {
-            return "redirect:/";
-        } else {
+        if (SecurityUtility.userIsAnonymous()) {
             return "register";
+        } else {
+            return "redirect:/";
         }
     }
 
@@ -41,10 +39,7 @@ public class RegistrationController {
     public String doRegistration(@Valid @ModelAttribute RegistrationDto registrationDto,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null
-                && authentication.isAuthenticated()
-                && !authentication.getPrincipal().equals("anonymousUser")) {
+        if (!SecurityUtility.userIsAnonymous()) {
             return "redirect:/";
         } else {
             if (!bindingResult.hasErrors() && isValid(registrationDto, redirectAttributes)) {

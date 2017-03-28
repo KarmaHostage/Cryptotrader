@@ -98,7 +98,7 @@ public class UserService {
             mailService
                     .createMail()
                     .to(alreadyInDatabase.get().getEmail())
-                    .subject("Cryptopurse | Account Registration")
+                    .subject("Karmahostage | Account Registration")
                     .body(bodyBuilder.toString())
                     .send();
         } else {
@@ -113,7 +113,7 @@ public class UserService {
                             .setEnabled(false)
             );
             StringBuilder bodyBuilder = new StringBuilder("Hi!\n\n" +
-                    "Thank you for registering an account on Cryptopurse.\n" +
+                    "Thank you for registering an account on Karmahostage.\n" +
                     "Please navigate to ");
             bodyBuilder.append(fullbaseUrl + "/activation/" + newUser.getActivationCode());
             bodyBuilder.append(" to activate your account.\n" +
@@ -122,7 +122,7 @@ public class UserService {
             mailService
                     .createMail()
                     .to(newUser.getEmail())
-                    .subject("Cryptopurse | Account Registration")
+                    .subject("Karmahostage | Account Registration")
                     .body(bodyBuilder.toString())
                     .send();
         }

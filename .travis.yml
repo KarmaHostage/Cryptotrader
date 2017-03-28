@@ -9,7 +9,7 @@ deploy:
   provider: releases
   api_key:
     secure: j8yQoiUdYy8oBxX/USXUE0KXCvDSqUys9JtAPYVAtyMiKhefCVB3sCQOwE2O3F4LSRjOLj+JLIc4/6PMY8ujNklJOtAPDmgtzPIrfvbpWsvZmPfwoOzqWzjQwc+AmR+SE+qf1xFJXIa4FB1m+hwu9fJHRKjlU/k3BoYFhiR+LLS5dHoWZ8UcaWYxQk3kX5g8+G8OtZ5ndDuxGpl1d+dzxjut0BguCQ9l7at2NkI20FdX7TkcKiHChOeQHoh0ww7XntSEN40KNUJdt2aJtm20pOwwtrQUnQowzkXLSbhADSmla0FVxc1EDA0q4LNg5WJ2W8IQWIHgGAsq5AaO50JppbUri4zit0VYkM97SY4yQVCL7OjlYrDH8GLiw8Ju299SEAIRbeICFaTXQ4GpSN9U+J8ixDz3olEnj7XgQ9kZ0CJK5VRWscdi1SZ89VT/ikRUeOufb0r+DMDarT3d+VSlom3Pfbq8DnHPi2+q4Cxe0uSX4eiQ3l8XkaB1WP1yoaOGi1H71LCLzlBILRSY9/duI1gcqBAEhyJ/cfXxD4ono1rEM9NGygI0G7qkLQx2R0ya8abDYSbvyqYqODaTP1cgN1JEAbl7awmiATnd0DvneVLKg5GBdrgewz7IQXU5uSp/TXitf2NjKioiyk9sBpXzdwgMY+FXZyASjjPA/WY8w2o=
-  file: web/build/libs/CryptoTrader.jar
+  file: web/build/libs/Cryptotrader.jar
   on:
     repo: Cryptopurse/Cryptotrader
     tags: true

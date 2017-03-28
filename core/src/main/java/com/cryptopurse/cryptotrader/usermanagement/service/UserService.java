@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -50,6 +47,11 @@ public class UserService {
 
     public Optional<CryptotraderUser> findOne(long id) {
         return userRepository.findOne(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CryptotraderUser> findAll() {
+        return userRepository.findAll();
     }
 
     @Transactional(readOnly = true)

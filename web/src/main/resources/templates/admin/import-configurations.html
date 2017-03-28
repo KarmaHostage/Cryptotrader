@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/decorator">
+
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/scrollbar/css/jquery.mCustomScrollbar.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/pages/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css}"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"/>
+</div>
+
+<div layout:fragment="main-content">
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Manage Import Configurations</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a th:href="@{/}">Home</a></li>
+                <li>Admin</li>
+                <li class="active">Import Configurations</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container content-sm">
+
+        <div class="row">
+            <div class="panel margin-bottom-40">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-tasks"></i> Overview</h3>
+                </div>
+                <div class="panel-body">
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Currency Pair</th>
+                        <th>Exchange</th>
+                        <th>Enabled</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="importconfig : ${configurations}">
+                        <td th:text="${importconfig.id}">1</td>
+                        <td th:text="${importconfig.currencyPair}">currencyPair</td>
+                        <td th:text="${importconfig.exchange}">SomeExchange</td>
+                        <td>
+                            <button class="btn-u btn-u-green rounded-2x disabled" disabled="disabled" type="button"><i class="fa fa-thumbs-o-up"></i></button>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn-u dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#"><i class="fa fa-edit"></i> Edit Configuration</a></li>
+                                    <li><a href="#"><i class="fa fa-remove"></i> Delete Configuration</a></li>
+                                    <li><a href="#"><i class="fa fa-power-off"></i> Disable Configuration</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div><!--/container-->
+    <!--=== End Service Block ===-->
+</div>
+
+<div layout:fragment="footer-content">
+
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/checkout.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/plugins/datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/reg.js}"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table-locale-all.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+    <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
+    <script th:src="@{/assets/js/websockets/websockets.js}"></script>
+
+    <script type="text/javascript">
+		jQuery(document).ready(function () {
+			App.initScrollBar();
+		});
+    </script>
+</div>
+
+</html>

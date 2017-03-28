@@ -66,12 +66,10 @@
                     <!-- About -->
                     <div class="col-md-3 md-margin-bottom-40">
                         <h1>
-                            <span class="color-green">C</span><span style="color:white;">ryptopurse</span>
+                            <span class="color-green">K</span><span style="color:white;">armahostage</span>
                         </h1>
-                        <p>Cryptopurse is a company that cares about user-friendly, anonymous and secure
-                        payment methods.</p>
-                        <p>Our team is still actively developing the application and will provide extra services
-                            in the near future.</p>
+                        <p>Karmahostage is a company that cares about user-friendly, anonymous and secure
+                        information.</p>
                     </div><!--/col-md-3-->
                     <!-- End About -->
 
@@ -102,8 +100,6 @@
                         <div class="headline"><h2>Useful Links</h2></div>
                         <ul class="list-unstyled link-list">
                             <li><a th:href="@{/}">Home</a><i class="fa fa-angle-right"></i></li>
-                            <li sec:authorize="isAuthenticated()"><a th:href="@{/wallet}">Your wallet</a><i class="fa fa-angle-right"></i></li>
-                            <li sec:authorize="isAuthenticated()"><a th:href="@{/account}">Settings</a><i class="fa fa-angle-right"></i></li>
                             <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">Login</a><i class="fa fa-angle-right"></i></li>
                             <li sec:authorize="!isAuthenticated()"><a th:href="@{/register}">Register</a><i class="fa fa-angle-right"></i></li>
                             <li sec:authorize="!isAuthenticated()"><a th:href="@{/forgot-password}">Forgot Password</a><i class="fa fa-angle-right"></i></li>
@@ -118,7 +114,7 @@
                         <address class="md-margin-bottom-40">
                             In the blockchain <br/>
                             Everywhere <br/>
-                            Email: <a href="mailto:info@cryptopurse.io" class="">info@cryptopurse.io</a>
+                            Email: <a href="mailto:crypto@karmahostage.com" class="">crypto@karmahostage.com</a>
                         </address>
                     </div><!--/col-md-3-->
                     <!-- End Address -->
@@ -131,8 +127,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>
-                            2016 &copy; All Rights Reserved.
-                            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                            2017 &copy; All Rights Reserved.
+                            <a href="#">Terms of Service</a>
                         </p>
                     </div>
 
@@ -165,20 +161,8 @@
                             </li>
                             <li>
                                 <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title=""
-                                   data-original-title="Pinterest">
-                                    <i class="fa fa-pinterest"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title=""
                                    data-original-title="Twitter">
                                     <i class="fa fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="tooltips" data-toggle="tooltip" data-placement="top" title=""
-                                   data-original-title="Dribbble">
-                                    <i class="fa fa-dribbble"></i>
                                 </a>
                             </li>
                         </ul>

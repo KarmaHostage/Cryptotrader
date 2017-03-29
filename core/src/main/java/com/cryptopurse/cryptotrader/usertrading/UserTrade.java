@@ -1,10 +1,11 @@
-package com.cryptopurse.cryptotrader.market.domain;
+package com.cryptopurse.cryptotrader.usertrading;
 
 import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchanges;
+import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
+import com.cryptopurse.cryptotrader.market.domain.PlacedOrderEnum;
 import com.cryptopurse.cryptotrader.usermanagement.domain.CryptotraderUser;
 
 import javax.persistence.*;
-import java.util.Currency;
 import java.util.Date;
 
 @Entity

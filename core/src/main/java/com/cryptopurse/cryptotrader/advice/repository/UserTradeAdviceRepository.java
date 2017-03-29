@@ -4,7 +4,7 @@ import com.cryptopurse.cryptotrader.advice.domain.UserTradeAdvice;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
 import com.cryptopurse.cryptotrader.advice.domain.StrategyType;
 import com.cryptopurse.cryptotrader.infrastructure.repository.JpaRepository;
-import com.cryptopurse.cryptotrader.market.domain.UserTrade;
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;

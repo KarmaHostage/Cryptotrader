@@ -1,5 +1,7 @@
 package com.cryptopurse.cryptotrader.market.domain;
 
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
+
 import java.util.Date;
 
 public class UserTradeFixture {

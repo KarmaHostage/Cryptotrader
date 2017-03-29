@@ -1,6 +1,6 @@
 package com.cryptopurse.cryptotrader.advice.domain;
 
-import com.cryptopurse.cryptotrader.market.domain.UserTrade;
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
 
 import javax.persistence.*;
 import java.util.Date;

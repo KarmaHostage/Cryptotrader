@@ -33,7 +33,14 @@
                         <a th:href="@{/wallet}">Trading</a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{/indicators}">Indicators</a></li>
-                            <li><a th:href="@{/configuration}">Account Configuration</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a href="#">admin</a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/admin/usermanagement}">user management</a></li>
+                            <li><a th:href="@{/admin/papertrade}">papertrade</a></li>
+                            <li><a th:href="@{/admin/usermanagement}">import-configurations</a></li>
                         </ul>
                     </li>
                     <li sec:authorize="isAuthenticated()">

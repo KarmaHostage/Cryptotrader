@@ -1,11 +1,11 @@
-package com.cryptopurse.cryptotrader.papertrading.continuous;
+package com.cryptopurse.cryptotrader.usertrading.continuous;
 
 import com.cryptopurse.cryptotrader.advice.domain.StrategyPeriod;
 import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchanges;
 import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
 import com.cryptopurse.cryptotrader.market.domain.PlacedOrderEnum;
 import com.cryptopurse.cryptotrader.market.domain.TradeHistory;
-import com.cryptopurse.cryptotrader.market.domain.UserTrade;
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
 import com.cryptopurse.cryptotrader.market.dto.StrategyWrapper;
 import com.cryptopurse.cryptotrader.market.repository.TradeHistoryRepository;
 import com.cryptopurse.cryptotrader.market.service.StrategyService;
@@ -24,10 +24,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 @Component
-public class PaperTraderJob {
+public class UserTradeJob {
 
     @Autowired
     private TradeHistoryRepository tradeHistoryRepository;

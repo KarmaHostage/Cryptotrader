@@ -2,7 +2,7 @@ package com.cryptopurse.cryptotrader.market.timeseries;
 
 import com.cryptopurse.cryptotrader.market.domain.TradeHistory;
 import com.cryptopurse.cryptotrader.market.domain.TradeHistoryFixture;
-import com.cryptopurse.cryptotrader.market.domain.UserTrade;
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
 import com.cryptopurse.cryptotrader.market.domain.UserTradeFixture;
 import eu.verdelhan.ta4j.Order;
 import eu.verdelhan.ta4j.TimeSeries;

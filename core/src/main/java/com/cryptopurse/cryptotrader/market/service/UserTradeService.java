@@ -2,7 +2,7 @@ package com.cryptopurse.cryptotrader.market.service;
 
 import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchanges;
 import com.cryptopurse.cryptotrader.market.domain.CurrencyPair;
-import com.cryptopurse.cryptotrader.market.domain.UserTrade;
+import com.cryptopurse.cryptotrader.usertrading.UserTrade;
 import com.cryptopurse.cryptotrader.market.repository.UserTradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

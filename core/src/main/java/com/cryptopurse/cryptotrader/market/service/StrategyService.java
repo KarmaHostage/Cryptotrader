@@ -9,14 +9,32 @@ import eu.verdelhan.ta4j.Strategy;
 import eu.verdelhan.ta4j.TimeSeries;
 import eu.verdelhan.ta4j.indicators.simple.ClosePriceIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.DoubleEMAIndicator;
-import eu.verdelhan.ta4j.indicators.trackers.MACDIndicator;
 import eu.verdelhan.ta4j.indicators.trackers.SMAIndicator;
 import eu.verdelhan.ta4j.trading.rules.OverIndicatorRule;
 import eu.verdelhan.ta4j.trading.rules.UnderIndicatorRule;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class StrategyService {
+
+    public Optional<StrategyWrapper> byStrategyType(StrategyType strategyType, TimeSeries timeSeries) {
+        switch (strategyType) {
+            case SMA:
+                return Optional.of(smaIndicator(timeSeries));
+            case MM:
+                return Optional.of(movingMomentumStrategy(timeSeries));
+            case CCI:
+                return Optional.of(cciStrategy(timeSeries));
+            case DEMA:
+                return Optional.of(demaIndicator(timeSeries));
+            case RSI2:
+                return Optional.of(rsi2Strategy(timeSeries));
+            default:
+                return Optional.empty();
+        }
+    }
 
     public StrategyWrapper smaIndicator(TimeSeries timeSeries) {
         final ClosePriceIndicator closePrice = new ClosePriceIndicator(timeSeries);

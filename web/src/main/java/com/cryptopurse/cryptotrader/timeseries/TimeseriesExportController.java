@@ -35,11 +35,13 @@ public class TimeseriesExportController {
 
     @RequestMapping(method = GET)
     public List<TimeseriesDto> export(@RequestParam(value = "period", defaultValue = "FIVE_MIN") StrategyPeriod period,
-                                      @RequestParam(value = "exchange", defaultValue = "KRAKEN") SupportedExchanges exchange) {
+                                      @RequestParam(value = "exchange", defaultValue = "KRAKEN") SupportedExchanges exchange,
+                                      @RequestParam(value = "pair", defaultValue = "ETHEUR") final CurrencyPair currencyPair) {
+
         final List<TradeHistory> recentTrades = tradehistoryService.findRecentTrades(
-                Date.from(LocalDateTime.now().minus(2, ChronoUnit.DAYS).toInstant(ZoneOffset.UTC)), exchange)
+                Date.from(LocalDateTime.now().minus(1, ChronoUnit.DAYS).toInstant(ZoneOffset.UTC)), exchange)
                 .stream()
-                .filter(x -> x.getCurrencyPair().equals(CurrencyPair.ETHBTC))
+                .filter(x -> x.getCurrencyPair().equals(currencyPair))
                 .collect(Collectors.toList());
         final TimeSeries timeseries = timeseriesBuilder.timeseries(recentTrades, period.getTimeframeInSeconds());
         final int amountOfTixs = timeseries.getTickCount();

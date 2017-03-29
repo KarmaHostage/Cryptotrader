@@ -41,6 +41,8 @@ public class IndicatorController {
                 ).collect(Collectors.toList());
 
         modelMap.put("indications", indications);
+        modelMap.put("currencyPair", pair.name());
+        modelMap.put("exchange", exchange.name());
         return "indicators/indicators";
     }
 

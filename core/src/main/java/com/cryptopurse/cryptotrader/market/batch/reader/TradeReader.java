@@ -10,9 +10,11 @@ import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,8 @@ public class TradeReader implements ItemReader<Trade> {
     private ImportConfigurationService importConfigurationServiceImpl;
     @Autowired
     private Map<SupportedExchanges, ? extends MarketService> marketServicesPerSuppportedExchange;
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     private List<Trade> trades = new ArrayList<>();
     private Long configurationId;
@@ -56,6 +60,11 @@ public class TradeReader implements ItemReader<Trade> {
                 this.trades = trades.getTrades();
                 importConfigurationServiceImpl.update(importConfiguration.getId(), trades.getlastID());
             }
+            messagingTemplate.convertAndSend("/topic/krakenvolume", trades.stream()
+                    .map(Trade::getTradableAmount)
+                    .mapToLong(BigDecimal::longValue)
+                    .sum()
+            );
         }
     }
 

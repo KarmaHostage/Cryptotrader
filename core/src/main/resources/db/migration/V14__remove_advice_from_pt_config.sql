@@ -1,0 +1,2 @@
+alter table papertrade_configurations
+drop column strategy_advice;

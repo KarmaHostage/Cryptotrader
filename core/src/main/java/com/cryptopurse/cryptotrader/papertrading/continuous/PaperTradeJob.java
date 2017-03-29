@@ -69,7 +69,7 @@ public class PaperTradeJob {
     private void tradeOnPaper(final PaperTrade paperTrade, final PaperTradeConfiguration config, final List<TradeHistory> recentTrades) {
         TimeSeries timeseries = timeSeriesBuilder.timeseries(recentTrades, config.getStrategyPeriod().getTimeframeInSeconds());
         getStrategyWrapperConsumer(paperTrade, config, timeseries).accept(
-                indicatorService.byStrategyType(paperTrade.getPaperTradeConfiguration().getStrategyType(), timeseries)
+                indicatorService.byStrategyType(config.getStrategyType(), timeseries)
                         .orElseThrow(() -> new IllegalArgumentException("Strategy Not supported yet"))
         );
     }

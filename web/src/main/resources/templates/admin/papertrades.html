@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/decorator">
+
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/scrollbar/css/jquery.mCustomScrollbar.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/pages/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css}"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"/>
+</div>
+
+<div layout:fragment="main-content">
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Papertrade History</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a th:href="@{/}">Home</a></li>
+                <li>Admin</li>
+                <li class="active">Papertrade History</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container content-sm">
+
+        <div class="row">
+            <div class="panel margin-bottom-40">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-tasks"></i> Overview</h3>
+                </div>
+                <div class="panel-body">
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>type</th>
+                        <th>price</th>
+                        <th>timestamp</th>
+                        <th>currencypair</th>
+                        <th>exchange</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="papertrade : ${papertrades}">
+                        <td>
+                            <div th:if="${papertrade.orderType.name().equals('BUY')}">
+                                <span class="label label-success rounded">BUY</span>
+                            </div>
+                            <div th:if="${papertrade.orderType.name().equals('SELL')}">
+                                <span class="label rounded label-danger">SELL</span>
+                            </div>
+                        </td>
+                        <td th:text="${papertrade.price}">price</td>
+                        <td th:text="${papertrade.placedAt}">email</td>
+                        <td th:text="${papertrade.currencyPair}">email</td>
+                        <td th:text="${papertrade.exchange}">email</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div><!--/container-->
+    <!--=== End Service Block ===-->
+</div>
+
+<div layout:fragment="footer-content">
+
+    <script type="text/javascript"
+            th:src="@{/assets/unify/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/checkout.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/plugins/datepicker.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/js/forms/reg.js}"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table-locale-all.min.js"></script>
+    <script type="text/javascript"
+            src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+    <script type="text/javascript">
+		jQuery(document).ready(function () {
+			App.initScrollBar();
+		});
+    </script>
+</div>
+
+</html>

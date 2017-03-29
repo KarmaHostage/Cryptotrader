@@ -2,6 +2,7 @@ package com.cryptopurse.cryptotrader.market.batch.reader;
 
 import com.cryptopurse.cryptotrader.api.market.MarketService;
 import com.cryptopurse.cryptotrader.exchange.service.supported.SupportedExchanges;
+import com.cryptopurse.cryptotrader.market.batch.dto.TradeStatistics;
 import com.cryptopurse.cryptotrader.market.domain.ImportConfiguration;
 import com.cryptopurse.cryptotrader.market.service.ImportConfigurationService;
 import org.knowm.xchange.dto.marketdata.Trade;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,8 @@ public class TradeReader implements ItemReader<Trade> {
     private Map<SupportedExchanges, ? extends MarketService> marketServicesPerSuppportedExchange;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#.####");
 
     private List<Trade> trades = new ArrayList<>();
     private Long configurationId;
@@ -60,13 +64,29 @@ public class TradeReader implements ItemReader<Trade> {
                 this.trades = trades.getTrades();
                 importConfigurationServiceImpl.update(importConfiguration.getId(), trades.getlastID());
             }
-            messagingTemplate.convertAndSend("/topic/krakenvolume", trades.stream()
-                    .map(Trade::getTradableAmount)
-                    .mapToLong(BigDecimal::longValue)
-                    .sum()
-            );
+            messagingTemplate.convertAndSend("/topic/krakenvolume", new TradeStatistics(formattedVolume(), formattedTradeCount(), latestPrice()));
         }
     }
+
+    public String formattedVolume() {
+        return decimalFormat.format(trades.stream()
+                .map(Trade::getTradableAmount)
+                .mapToDouble(BigDecimal::doubleValue)
+                .sum() * 2);
+    }
+
+    public String formattedTradeCount() {
+        return decimalFormat.format(trades.stream()
+                .count() * 2);
+    }
+
+
+    public String latestPrice() {
+        return trades.stream()
+                .map(x -> decimalFormat.format(x.getPrice().doubleValue()))
+                .reduce((a, b) -> b).orElse("unknown");
+    }
+
 
     private MarketService getMarketService(final SupportedExchanges exchange) {
         return marketServicesPerSuppportedExchange.get(exchange);

@@ -30,7 +30,11 @@
         </div>
 
         <div class="row">
-            <div id="chart_div" style="width: 100%; height: 600px;"></div>
+
+            <div class="col-md-12">
+                <div id="chart_div" style="width: 100%; height: 600px;"></div>
+            </div>
+
         </div>
         <div class="row">
 
@@ -55,6 +59,22 @@
             </div>
         </div>
 
+        <div id="statistics" class="row">
+            <hr />
+                <div class="counters col-md-4 col-sm-4">
+                    <span class="counter" id="volumeCounter">0</span>
+                    <h4>eth/min</h4>
+                </div>
+                <div class="counters col-md-4 col-sm-4">
+                    <span class="counter" id="tradeCounter">0</span>
+                    <h4>trades/min</h4>
+                </div>
+                <div class="counters col-md-4 col-sm-4">
+                    <span class="counter" id="priceCounter">0</span>
+                    <h4>latest price</h4>
+                </div>
+        </div>
+
     </div><!--/container-->
     <!--=== End Service Block ===-->
 </div>
@@ -62,20 +82,16 @@
 <div layout:fragment="footer-content">
 
     <script type="text/javascript"
-            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js}"></script>
-    <script type="text/javascript"
-            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js}"></script>
-    <script type="text/javascript"
-            th:src="@{/assets/unify/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js}"></script>
-    <script type="text/javascript"
             th:src="@{/assets/unify/plugins/scrollbar/js/jquery.mCustomScrollbar.concat.min.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/unify/js/forms/checkout.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/unify/js/plugins/datepicker.js}"></script>
-    <script type="text/javascript" th:src="@{/assets/unify/js/forms/reg.js}"></script>
+
     <script type="text/javascript"
             src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table-locale-all.min.js"></script>
     <script type="text/javascript"
             src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+
+
+    <script type="text/javascript" th:src="@{/assets/unify/plugins/counter/waypoints.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/plugins/counter/jquery.counterup.min.js}"></script>
 
     <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
     <script th:src="@{/assets/js/websockets/websockets.js}"></script>
@@ -83,18 +99,23 @@
     <script type="text/javascript">
 		jQuery(document).ready(function () {
 			App.initScrollBar();
+			App.initCounter();
+			$("#statistics").hide();
 		});
 
-		function logWebSocket(body) {
-			console.log("get answer!");
-			console.log(body)
+		function logWebSocket(message) {
+			var statistic = JSON.parse(message.body);
+			$("#volumeCounter").text((statistic.volume));
+			$("#priceCounter").text((statistic.price));
+			$("#tradeCounter").text((statistic.tradeCount));
+			$("#statistics").show();
 		}
 
 		WebSockets
 			.connect('/topic/krakenvolume', logWebSocket);
     </script>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" th:inline="javascript">
         /*<![CDATA[*/
 
@@ -114,7 +135,7 @@
 
 			var myArray = [];
 
-			var timeseriesUrl = "/rest/timeseries?period=" + period + "&exchange=" + exchange +"&pair=" + currencyPair;
+			var timeseriesUrl = "/rest/timeseries?period=" + period + "&exchange=" + exchange + "&pair=" + currencyPair;
 
 			$.get(timeseriesUrl, function (result) {
 				$.each(result, function (idx, value) {

@@ -30,7 +30,14 @@
                         <a th:href="@{/login}">Login</a>
                     </li>
                     <li class="dropdown" sec:authorize="isAuthenticated()">
-                        <a th:href="@{/wallet}">Trading</a>
+                        <a href="#">Paper Trading</a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/user/papertrade-configurations}">Configuration</a></li>
+                            <li><a th:href="@{/user/papertrade}">History</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" sec:authorize="isAuthenticated()">
+                        <a href="#">Trading</a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{/indicators}">Indicators</a></li>
                         </ul>

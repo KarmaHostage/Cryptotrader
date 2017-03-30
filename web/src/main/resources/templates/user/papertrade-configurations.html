@@ -9,6 +9,9 @@
     <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css}"/>
     <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css}"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.bootstrap.min.css"/>
 </div>
 
 <div layout:fragment="main-content">
@@ -31,7 +34,7 @@
                 </div>
                 <div class="panel-body">
                 </div>
-                <table class="table">
+                <table class="table" id="configurationTable">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -86,9 +89,12 @@
     <script type="text/javascript"
             src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
 
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
     <script type="text/javascript">
 		jQuery(document).ready(function () {
 			App.initScrollBar();
+			$("#configurationTable").DataTable();
 		});
     </script>
 </div>

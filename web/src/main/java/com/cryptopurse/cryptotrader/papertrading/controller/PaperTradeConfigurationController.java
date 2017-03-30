@@ -24,7 +24,7 @@ public class PaperTradeConfigurationController {
         final Optional<CryptotraderUser> user = SecurityUtility.currentUser();
         if (user.isPresent()) {
             modelMap.put("configurations", paperTradeConfigurationService.findByUser(user.get()));
-            return "/user/papertrade-configurations";
+            return "user/papertrade-configurations";
         } else {
             return "redirect:/";
         }

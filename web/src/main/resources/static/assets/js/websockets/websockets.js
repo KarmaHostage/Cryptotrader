@@ -7,15 +7,18 @@ var WebSockets = function () {
 		stompClient = Stomp.over(socket);
 	}
 
-	function connect(topic, _handler) {
-		stompClient.connect({}, function () {
-			stompClient.subscribe(topic, _handler);
-		});
+	function subscribe(topic, _handler) {
+		stompClient.subscribe(topic, _handler);
+	}
+
+	function connect(success, failure) {
+		stompClient.connect({}, success, failure);
 	}
 
 	__init();
 
 	return {
-		connect: connect
+		connect: connect,
+		subscribe: subscribe
 	}
 }();

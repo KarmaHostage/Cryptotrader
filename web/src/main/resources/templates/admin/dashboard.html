@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="decorator/decorator">
+
+<div layout:fragment="header-content">
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/scrollbar/css/jquery.mCustomScrollbar.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/css/pages/profile.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/css/sky-forms.css}"/>
+    <link rel="stylesheet" th:href="@{/assets/unify/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css}"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.0/bootstrap-table.min.css"/>
+</div>
+
+<div layout:fragment="main-content">
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">Manage Import Configurations</h1>
+            <ul class="pull-right breadcrumb">
+                <li><a th:href="@{/}">Home</a></li>
+                <li>Admin</li>
+                <li class="active">Import Configurations</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container content-sm">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+            </div>
+            <div class="counters col-md-3 col-sm-3">
+                <span class="counter-icon"><i class="fa fa-user-times rounded"></i></span>
+                <span class="counter" id="userCount">0</span>
+            </div>
+            <div class="counters col-md-3 col-sm-3">
+                <span class="counter-icon"><i class="fa fa-line-chart rounded"></i></span>
+                <span class="counter" id="tradeCount">0</span>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+            </div>
+        </div>
+    </div><!--/container-->
+    <!--=== End Service Block ===-->
+</div>
+
+<div layout:fragment="footer-content">
+
+    <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
+    <script th:src="@{/assets/js/websockets/websockets.js}"></script>
+
+
+    <script type="text/javascript">
+		jQuery(document).ready(function () {
+
+
+			function onSuccess() {
+				WebSockets.subscribe('/app/admin/dashboard/user-count', function (result) {
+					$("#userCount").text(result.body);
+				});
+				WebSockets.subscribe('/app/admin/dashboard/trade-count', function (result) {
+					$("#tradeCount").text(result.body);
+				});
+			}
+
+			function onFailure() {
+				setTimeout(connect, 5000);
+			}
+
+			function connect() {
+				WebSockets.connect(onSuccess, onFailure);
+			}
+
+			connect();
+		});
+    </script>
+</div>
+
+</html>

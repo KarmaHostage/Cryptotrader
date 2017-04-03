@@ -22,6 +22,11 @@ public class TradehistoryService {
         return tradeHistoryRepository.findRecentTrades(startTime, exchange);
     }
 
+    @Transactional(readOnly = true)
+    public long count() {
+        return tradeHistoryRepository.count();
+    }
+
     @Transactional
     public void insert(TradeHistory tradeHistory) {
         tradeHistoryRepository.save(tradeHistory);

@@ -68,5 +68,3 @@ endpoints:
     sensitive: false
   metrics:
     sensitive: false
-  heapdump:
-    sensitive: false

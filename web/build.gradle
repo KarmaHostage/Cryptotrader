@@ -44,6 +44,7 @@ dependencies {
 
     //configuration
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-hateoas")
 
     //utils
     compile('commons-validator:commons-validator:1.4.0')

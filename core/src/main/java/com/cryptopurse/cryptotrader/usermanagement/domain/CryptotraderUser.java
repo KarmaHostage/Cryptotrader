@@ -171,4 +171,8 @@ public class CryptotraderUser implements UserDetails {
         this.passwordResetCode = passwordResetCode;
         return this;
     }
+
+    public boolean isSame(final CryptotraderUser user) {
+        return this.getId().equals(user.getId()) && this.getEmail().equals(user.getEmail());
+    }
 }

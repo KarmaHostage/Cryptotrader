@@ -25,11 +25,15 @@ public class ImportConfigurationService {
     }
 
     @Transactional
-    public void update(Long id, Long lastImportId) {
+    public void update(final Long id, final Long lastImportId) {
         Optional<ImportConfiguration> config = findOne(id);
         config.ifPresent(configuration -> importConfigurationRepository.save(configuration.setLastImportId(lastImportId)
                 .setLastImportTimestamp(new Date())
         ));
     }
 
+    @Transactional
+    public void save(final ImportConfiguration importConfiguration) {
+        importConfigurationRepository.save(importConfiguration);
+    }
 }

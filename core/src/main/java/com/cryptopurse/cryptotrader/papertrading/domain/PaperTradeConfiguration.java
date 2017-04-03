@@ -115,4 +115,9 @@ public class PaperTradeConfiguration {
         this.strategyType = strategyType;
         return this;
     }
+
+    @Transient
+    public boolean isNew() {
+        return id == null;
+    }
 }

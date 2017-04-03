@@ -72,4 +72,9 @@ public class ImportConfiguration {
         this.exchange = exchange;
         return this;
     }
+
+    @Transient
+    public boolean isNew() {
+        return id == null;
+    }
 }

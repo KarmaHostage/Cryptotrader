@@ -38,6 +38,24 @@
             <div class="col-md-3 col-sm-3">
             </div>
         </div>
+        <br />
+        <div class="row pie-progress-charts margin-bottom-60">
+            <div class="inner-pchart col-md-3">
+            </div>
+            <div class="inner-pchart col-md-3">
+                <div class="circle" id="circles-1"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="140" height="140"><path fill="transparent" stroke="#D3B6C6" stroke-width="2" d="M 69.98594654894504 1.0000014311557095 A 69 69 0 1 1 69.90416038427306 1.0000665596838587 Z"></path><path fill="transparent" stroke="#9B6BCC" stroke-width="2" d="M 69.98594654894504 1.0000014311557095 A 69 69 0 1 1 52.91551060221643 136.85147883193775 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:35px; height:140px; line-height:140px;"><span class="circles-number"><span class="circles-number">54</span></span><span class="circles-text">%</span></div></div></div>
+                <h3 class="circle-title">Heap</h3>
+                <p>Percentage of free heapspace</p>
+            </div>
+            <div class="inner-pchart col-md-3">
+                <div class="circle" id="circles-2"><div class="circles-wrp" style="position:relative; display:inline-block;"><svg width="140" height="140"><path fill="transparent" stroke="#C9FF97" stroke-width="2" d="M 69.98594654894504 1.0000014311557095 A 69 69 0 1 1 69.90416038427306 1.0000665596838587 Z"></path><path fill="transparent" stroke="#72c02c" stroke-width="2" d="M 69.98594654894504 1.0000014311557095 A 69 69 0 1 1 19.730006348346947 117.26444475779613 "></path></svg><div class="circles-text-wrp" style="position:absolute; top:0; left:0; text-align:center; width:100%; font-size:35px; height:140px; line-height:140px;"><span class="circles-number"><span class="circles-number">63</span></span><span class="circles-text">%</span></div></div></div>
+                <h3 class="circle-title">Memory</h3>
+                <p>Percentage of free memory</p>
+            </div>
+            <div class="inner-pchart col-md-3">
+            </div>
+
+        </div>
     </div><!--/container-->
     <!--=== End Service Block ===-->
 </div>
@@ -46,6 +64,7 @@
 
     <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
     <script th:src="@{/assets/js/websockets/websockets.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/unify/plugins/circles-master/circles.js}"></script>
 
 
     <script type="text/javascript">
@@ -65,8 +84,47 @@
 				setTimeout(connect, 5000);
 			}
 
+			function parseResults(result) {
+				console.log('heap used ' + result["heap.used"]);
+				console.log('total heap ' + result["heap"]);
+
+				var heapPercentage = (100 - result["heap.used"] / result["heap"]);
+				var memPercentage = (100 - result["mem.free"] / (result["mem"] + result["mem.free"]));
+
+				Circles.create({
+					id:         'circles-1',
+					percentage: heapPercentage,
+					radius:     80,
+					width:      2,
+					number:     heapPercentage,
+					text:       '%',
+					colors:     ['#D3B6C6', '#9B6BCC'],
+					duration:   1000
+				});
+				Circles.create({
+					id:         'circles-2',
+					percentage: memPercentage,
+					radius:     80,
+					width:      2,
+					number:     memPercentage,
+					text:       '%',
+					colors:     ['#C9FF97', '#72c02c'],
+					duration:   1000
+				});
+				console.log(result);
+				console.log('active httpsessions ' + result["httpsessions.active"]);
+				setTimeout(getMetrics, 5000);
+			}
+
+			function getMetrics() {
+				$.get('/metrics', function (result) {
+					parseResults(result);
+				});
+			}
+
 			function connect() {
 				WebSockets.connect(onSuccess, onFailure);
+				getMetrics();
 			}
 
 			connect();

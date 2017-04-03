@@ -16,8 +16,3 @@ com:
       sender: postmaster@sandbox871877c7759d4848a400984def71bc05.mailgun.org
 
 debug: true
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/

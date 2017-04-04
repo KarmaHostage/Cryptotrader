@@ -3,10 +3,10 @@ package com.cryptopurse.cryptotrader.admin;
 import com.cryptopurse.cryptotrader.market.service.TradehistoryService;
 import com.cryptopurse.cryptotrader.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -24,12 +24,14 @@ public class DashboardController {
         return "admin/dashboard";
     }
 
-    @SubscribeMapping("/admin/dashboard/user-count")
+    @RequestMapping("/user-count")
+    @ResponseBody
     public int getUserCount() {
         return userService.findAll().size();
     }
 
-    @SubscribeMapping("/admin/dashboard/trade-count")
+    @RequestMapping("/trade-count")
+    @ResponseBody
     public long getTradeCount() {
         return tradehistoryService.count();
     }

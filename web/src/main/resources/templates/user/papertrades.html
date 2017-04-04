@@ -40,6 +40,13 @@
                     </div>
                     <div th:id="'collapse-' + ${papertrade.configuration.id}" class="panel-collapse collapse">
                         <div class="panel-body">
+
+
+                            <p>total profit: <span th:text="${papertrade.totalProfit}"></span> </p>
+                            <p>average profitable trades:  <span th:text="${papertrade.averageProfitableTrades}"></span> </p>
+                            <p>transaction costs: <span th:text="${papertrade.transactionCosts}"></span></p>
+                            <p>average profit: <span th:text="${papertrade.averageProfit}"></span> </p>
+
                             <table id="myTable" class="table">
                                 <thead>
                                 <tr>

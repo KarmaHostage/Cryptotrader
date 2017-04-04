@@ -45,6 +45,18 @@ public class UserService {
         this.activationEncoder = new StandardPasswordEncoder();
     }
 
+    @Transactional
+    public void enable(Long userId) {
+        userRepository.findOne(userId)
+                .ifPresent(user -> userRepository.save(user.setEnabled(true)));
+    }
+
+    @Transactional
+    public void disable(Long userId) {
+        userRepository.findOne(userId)
+                .ifPresent(user -> userRepository.save(user.setEnabled(false)));
+    }
+
     public Optional<CryptotraderUser> findOne(long id) {
         return userRepository.findOne(id);
     }

@@ -9,10 +9,11 @@ spring:
 
 
 com:
-  cryptopurse:
-    mail:
-      domain: sandbox871877c7759d4848a400984def71bc05.mailgun.org
-      apikey: key-510847558185974ea3ba84ba7bfd79b9
-      sender: postmaster@sandbox871877c7759d4848a400984def71bc05.mailgun.org
+  karmahostage:
+    cryptotrader:
+      mail:
+        domain: sandbox871877c7759d4848a400984def71bc05.mailgun.org
+        apikey: key-510847558185974ea3ba84ba7bfd79b9
+        sender: postmaster@sandbox871877c7759d4848a400984def71bc05.mailgun.org
 
 debug: true
